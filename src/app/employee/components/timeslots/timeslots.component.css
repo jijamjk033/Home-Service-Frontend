@@ -1,0 +1,22 @@
+.my-button:disabled {
+  background-color: #666666;
+  color: #f1f0f0;
+  cursor: not-allowed;
+}
+
+.relative {
+  position: relative;
+}
+
+.delete-btn {
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+.relative:hover .delete-btn {
+  display: block;
+}
+
+.delete-btn:hover {
+  background-color: #c53030;
+}

@@ -1,0 +1,33 @@
+<div class="fixed inset-0 flex justify-center items-center bg-transparent">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="form">
+        <p class="title">Login</p>
+        <p class="message">Sign in to your account.</p>
+        <label>
+            <input required placeholder="Email" type="email" formControlName="email" />
+            <div class="text-red-700 mt-1">
+                <div *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched">
+                    Email is required.
+                </div>
+                <div *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.touched">
+                    Please enter a valid email address.
+                </div>
+            </div>
+        </label>
+        <label>
+            <input required placeholder="Password" type="password" formControlName="password" />
+            <div class="text-red-700 mt-1">
+                <div *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched">
+                    Password is required.
+                </div>
+                <div *ngIf="loginForm.get('password')?.errors?.['minlength'] && loginForm.get('password')?.touched">
+                    Password must be at least 8 characters long.
+                </div>
+            </div>
+        </label>
+        <button class="submit">Login</button>
+        <p *ngIf="userType === 'user' || userType === 'employee'" class="signin">
+            Don't have an account?
+            <a class="register" [routerLink]="getRegistrationLink()">Register</a>
+        </p>
+    </form>
+</div>

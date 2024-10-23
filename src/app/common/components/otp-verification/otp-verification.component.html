@@ -1,0 +1,41 @@
+<div class="flex fixed inset-0 otp-container">
+  <div class="otp-box">
+    <h2 class="otp-title">OTP Verification</h2>
+    <p class="otp-subtitle">Enter the verification code you received on your email address.</p>
+    <div *ngIf="isLoading" class="loader-overlay">
+      <div class="spinner"></div>
+    </div>
+    <form [formGroup]="otpForm" (ngSubmit)="verifyOtp()">
+      <div class="otp-inputs">
+        <input type="text" maxlength="1" class="otp-input" formControlName="otp1"
+          (input)="moveToNext($event, 'otp2')" />
+        <input type="text" maxlength="1" class="otp-input" formControlName="otp2"
+          (input)="moveToNext($event, 'otp3')" />
+        <input type="text" maxlength="1" class="otp-input" formControlName="otp3"
+          (input)="moveToNext($event, 'otp4')" />
+        <input type="text" maxlength="1" class="otp-input" formControlName="otp4" />
+      </div>
+
+      <button type="submit" class="otp-button" [disabled]="otpForm.invalid">VERIFY</button>
+    </form>
+    <div *ngIf="errorMessage" class="text-red-700 mt-2">
+      {{ errorMessage }}
+    </div>
+    <div class="text-red-700 mt-1">
+      <div *ngIf="otpForm.errors?.['required'] && otpForm.touched">
+        OTP is required.
+      </div>
+      <div *ngIf="otpForm.errors?.['minlength'] && otpForm.touched">
+        OTP must be 4 digits long.
+      </div>
+    </div>
+    <p *ngIf="resendDisabled" class="otp-resend-text">
+      If the OTP is not received, click the Resend button in <span>{{ countdown }} sec</span>
+    </p>
+    <p *ngIf="!resendDisabled" class="otp-resend-text"> You can now resend the OTP. </p>
+    <button class="otp-resend-button" [disabled]="resendDisabled"
+      [ngStyle]="{'background-color': resendDisabled ? '#e5e7eb' : '#306951'}" (click)="resendOtp()">Resend
+    </button>
+
+  </div>
+</div>

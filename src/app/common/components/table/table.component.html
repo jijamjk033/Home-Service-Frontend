@@ -1,0 +1,26 @@
+<div class="search-bar mb-3 w-1/3 flex justify-end">
+  <input type="text" [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search..." class="border p-1 rounded-lg w-full">
+</div>
+<table class="min-w-full table-auto border-collapse">
+  <thead>
+    <tr>
+      <th *ngFor="let header of tableHeaders" class="border px-4 py-2">{{ header }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of paginatedData">
+      <td *ngFor="let key of headerKeys" class="border px-4 py-2">{{ row[key] }}</td>
+      <td *ngIf="actions">
+        <button [routerLink]="['/book/timeslots',row._id]" class="bg-blue-500 text-white px-2 py-1 rounded-2xl hover:bg-blue-800">
+          Book now
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="pagination-controls">
+  <button (click)="prevPage()" [disabled]="!hasPrevPage()"> < </button>
+  <span>Page {{ currentPage }}</span>
+  <button (click)="nextPage()" [disabled]="!hasNextPage()"> > </button>
+</div>

@@ -1,0 +1,30 @@
+<div>
+    <div class="relative bg-cover bg-center h-96"
+        style="background-image: url('../../../../assets/background\ cover.jpg');">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <h1 class="text-white text-4xl font-bold">{{ categoryName }}</h1>
+        </div>
+    </div>
+    <div class="container mx-auto mt-8 ml-16">
+        <input type="text" placeholder="search..." class="w-96 py-2 px-2 border rounded-2xl shadow-lg">
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center mt-24 mb-20">
+        <div *ngFor="let service of services"
+            class="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between max-w-md mx-auto">
+            <div class="flex justify-center">
+                <img [src]="service.image" alt="{{ service.name }}" class="h-32 w-52 object-cover rounded-md" />
+            </div>
+            <h2 class="text-lg font-bold mt-4">{{ service.name }}</h2>
+            <p class="text-sm text-gray-600  mt-2">
+                Starts from
+            </p>
+            <span
+                class="inline-block mt-3 border border-gray-300 rounded-2xl bg-green-100 px-1 py-1 font-semibold text-black w-16">
+                ₹ {{ service.price }}
+            </span>
+            <a [routerLink]="['/book/service-selection',service._id]" class="bg-blue-500 text-white text-center px-2 py-2 rounded-2xl mt-4 mb-4 inline-block w-24 justify-center">
+                Book Now
+            </a>
+        </div>
+    </div>
+</div>

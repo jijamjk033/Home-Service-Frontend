@@ -1,0 +1,62 @@
+<h1 class="text-3xl font-bold">{{ pageTitle }}</h1>
+<div class="contain-layout m-8 border border-gray-200 shadow-lg p-6 rounded-lg">
+    <h2 class="text-xl font-bold mb-6">{{ categoryName }}</h2>
+    <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()"
+        class="border border-gray-200 shadow-lg p-6 rounded-lg bg-white">
+        <div class="flex space-x-6 mb-4">
+            <!-- Service Name Input -->
+            <div class="w-1/2">
+                <label for="serviceName" class="block text-sm font-medium text-gray-700">Service Name</label>
+                <input type="text" id="serviceName" formControlName="serviceName"
+                    class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-300 focus:border-blue-300 sm:text-sm"
+                    placeholder="Enter service name">
+                <div class="text-red-700 mt-1">
+                    <div
+                        *ngIf="serviceForm.get('serviceName')?.errors?.['required'] && serviceForm.get('serviceName')?.touched">
+                        Name is required.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Input -->
+            <div class="w-1/2">
+                <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+                <input type="number" id="price" formControlName="price"
+                    class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-300 focus:border-blue-300 sm:text-sm"
+                    placeholder="Enter price">
+                <div class="text-red-700 mt-1">
+                    <div *ngIf="serviceForm.get('price')?.errors?.['required'] && serviceForm.get('price')?.touched">
+                        Price is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-4">
+            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+            <input type="text" id="description" formControlName="description"
+                class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-300 focus:border-blue-300 sm:text-sm"
+                placeholder="Enter description">
+        </div>
+        <div class="mb-4">
+            <label for="serviceImage" class="block text-sm font-medium text-gray-700">Service Image</label>
+            <div class="border-dashed border-2 border-gray-300 rounded-md p-6 flex justify-center items-center">
+                <input type="file" id="serviceImage" (change)="onImageUpload($event)" class="hidden">
+                <label for="serviceImage" class="cursor-pointer flex flex-col items-center">
+                    <img [src]="uploadedImageUrl ? uploadedImageUrl : '../../../../assets/image upload button.jpg'"
+                        alt="image" class="h-12 w-12 mb-2">
+                    <span class="text-blue-500">Drag & Drop or <span class="underline">choose file</span> to
+                        upload</span>
+                    <p class="text-sm text-gray-500">Supported formats: JPEG, PNG, JPG, WEBP</p>
+                </label>
+            </div>
+            <div *ngIf="errorMessage" class="text-red-500 mt-2 flex justify-center ">{{ errorMessage }}</div>
+        </div>
+        <div class="flex justify-end space-x-4">
+            <button type="button" (click)="onCancel()"
+                class="border border-gray-300 bg-gray-100 text-gray-800 px-4 py-2 rounded">Cancel</button>
+            <button type="submit" [disabled]="serviceForm.invalid"
+                class="bg-blue-600 text-white px-4 py-2 rounded">Add</button>
+        </div>
+
+    </form>
+</div>

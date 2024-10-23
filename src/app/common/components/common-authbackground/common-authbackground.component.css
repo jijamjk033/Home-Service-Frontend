@@ -1,0 +1,31 @@
+.page-container {
+    background-color: #e3bb99; 
+    background-image:
+      radial-gradient(circle at bottom left, #8b90a8 0%, transparent 25%),
+      radial-gradient(circle at top right, #8b90a8 0%, transparent 25%);
+    background-size: 100% 100%; 
+    background-repeat: no-repeat; 
+    width: 100vw; 
+    height: 100vh; 
+    display: flex;
+    align-items: flex-start; 
+    justify-content: flex-start; 
+    padding: 20px; 
+    overflow: hidden;
+    position: fixed;
+    top: 0; 
+    left: 0;
+  }
+  
+  .header-container {
+    position: relative;
+  }
+  
+  .logo {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    width: 300px;
+    height: auto;
+  }
+  

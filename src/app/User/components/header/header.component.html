@@ -1,0 +1,19 @@
+<header class="" style="background-color: #666290;">
+
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="../../../../assets/Logo/myLogo.png" alt="HappyHomes" class="h-20">
+        </div>
+        <nav class="hidden md:flex space-x-8">
+            <a [routerLink]="'/book/categories'" class="text-white font-medium text-lg hover:text-blue-300">Services</a>
+            <a href="#bookings" class="text-white font-medium text-lg hover:text-blue-300">Bookings</a>
+            <a href="#history" class="text-white font-medium text-lg hover:text-blue-300">History</a>
+            <a href="#profile" class="text-white font-medium text-lg hover:text-blue-300">Profile</a>
+        </nav>
+
+        <div class="flex items-center space-x-4">
+            <a *ngIf="!isLoggedIn" [routerLink]="['/form/userLogin']" class="text-white font-medium text-lg hover:text-blue-300">Signup/Login</a>
+            <a *ngIf="isLoggedIn" (click)="logout()" class="text-white font-medium text-lg hover:text-blue-300">Logout</a>
+        </div>
+    </div>
+</header>

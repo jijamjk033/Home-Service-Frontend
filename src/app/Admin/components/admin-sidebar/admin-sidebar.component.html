@@ -1,0 +1,16 @@
+<div class="sidebar-component w-64 h-screen bg-blue-900 text-white flex flex-col">
+
+    <div class="px-6 py-4">
+        <img src="../../../../assets/Logo/myLogo.png" alt="Logo" class="h-16 w-auto">
+    </div>
+
+    <nav class="flex-1 px-6 py-4 m-4 space-y-2">
+        <a [routerLink] = "'/adminHome/adminDashboard'" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Dashboard</a>
+        <a [routerLink] = "'/adminHome/userList'" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Users</a>
+        <a [routerLink] = "'/adminHome/employeeList'" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Employees</a>
+        <a [routerLink] = "'/adminHome/categories'" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Services</a>
+        <a href="#" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Orders</a>
+        <a href="#" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Sales Report</a>
+        <a href="#" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Profile</a>
+    </nav>
+</div>

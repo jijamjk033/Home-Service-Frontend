@@ -1,0 +1,141 @@
+<div class="fixed inset-0 flex justify-center items-center bg-transparent overflow-auto">
+    <div *ngIf="isRegisterLoading" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+    <div class="relative w-full max-w-xl mx-auto min-h-screen flex items-center">
+        <form [formGroup]="employeeForm" (submit)="signupEmployee()"
+            class="form flex flex-col items-center gap-3 w-full bg-white p-6 rounded-xl border border-gray-300 shadow-lg">
+            <p class="title text-3xl font-semibold mb-1 text-black text-center">
+                Employee Registration
+            </p>
+            <p class="message text-center text-gray-700 mb-1">
+                Register as an employee and join our team.
+            </p>
+
+            <!-- Name Input -->
+            <label class="w-full flex flex-col relative max-w-md">
+                <input placeholder=" " formControlName="name" type="text"
+                    class="input w-full p-2 py-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200" />
+                <span
+                    class="absolute left-4 top-4 text-gray-500 text-sm cursor-text transition-all ease-out">Name</span>
+                <div class="text-red-700 mt-1">
+                    <div *ngIf="employeeForm.get('name')?.errors?.['required'] && employeeForm.get('name')?.touched">
+                        Name is required.
+                    </div>
+                    <div *ngIf="employeeForm.get('name')?.errors?.['minlength'] && employeeForm.get('name')?.touched">
+                        Name must be at least 4 characters long.
+                    </div>
+                </div>
+            </label>
+
+            <!-- Email Input -->
+            <label class="w-full flex flex-col relative max-w-md">
+                <input placeholder=" " formControlName="email" type="email"
+                    class="input w-full p-2 py-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200" />
+                <span
+                    class="absolute left-4 top-4 text-gray-500 text-sm cursor-text transition-all ease-out">Email</span>
+                <div class="text-red-700 mt-1">
+                    <div *ngIf="employeeForm.get('email')?.errors?.['required'] && employeeForm.get('email')?.touched">
+                        Email is required.
+                    </div>
+                    <div *ngIf="employeeForm.get('email')?.errors?.['email'] && employeeForm.get('email')?.touched">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+            </label>
+
+            <!-- Phone Input -->
+            <label class="w-full flex flex-col relative max-w-md">
+                <input placeholder=" " formControlName="phone" type="text"
+                    class="input w-full p-2 py-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200" />
+                <span class="absolute left-4 top-4 text-gray-500 text-sm cursor-text transition-all ease-out">Phone
+                    Number</span>
+                <div class="text-red-700 mt-1">
+                    <div *ngIf="employeeForm.get('phone')?.errors?.['required'] && employeeForm.get('phone')?.touched">
+                        Phone number is required.
+                    </div>
+                    <div *ngIf="employeeForm.get('phone')?.errors?.['pattern'] && employeeForm.get('phone')?.touched">
+                        Please enter a valid 10-digit phone number.
+                    </div>
+                </div>
+            </label>
+
+            <!-- Role Input -->
+            <label class="w-full flex flex-col relative max-w-md">
+                <select formControlName="role"
+                    class="input w-full p-2 py-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200">
+                    <option value="" disabled selected>Select Role</option>
+                    <option value="AC technician">AC technician</option>
+                    <option value="Plumber">Plumber</option>
+                    <option value="Electrician">Electrician</option>
+                    <option value="Painter">Painter</option>
+                    <option value="Beautician">Beautician</option>
+                </select>
+                <span class="absolute left-4 top-4 text-gray-500 text-sm cursor-text transition-all ease-out">Role you
+                    are applying for</span>
+                <div class="text-red-700 mt-1">
+                    <div *ngIf="employeeForm.get('role')?.errors?.['required'] && employeeForm.get('role')?.touched">
+                        This field is required.
+                    </div>
+                </div>
+            </label>
+
+            <!-- Years of Experience Input -->
+            <label class="w-full flex flex-col relative max-w-md">
+                <input placeholder=" " formControlName="yearsOfExperience" type="number"
+                    class="input w-full p-2 py-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200" />
+                <span class="absolute left-4 top-4 text-gray-500 text-sm cursor-text transition-all ease-out">Years of
+                    experience</span>
+                <div class="text-red-700 mt-1">
+                    <div
+                        *ngIf="employeeForm.get('yearsOfExperience')?.errors?.['required'] && employeeForm.get('yearsOfExperience')?.touched">
+                        This field is required.
+                    </div>
+                </div>
+            </label>
+
+            <!-- Password Input -->
+            <label class="w-full flex flex-col relative max-w-md">
+                <input placeholder=" " formControlName="password" type="password"
+                    class="input w-full p-2 py-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200" />
+                <span
+                    class="absolute left-4 top-4 text-gray-500 text-sm cursor-text transition-all ease-out">Password</span>
+                <div class="text-red-700 mt-1">
+                    <div
+                        *ngIf="employeeForm.get('password')?.errors?.['required'] && employeeForm.get('password')?.touched">
+                        Password is required.
+                    </div>
+                    <div
+                        *ngIf="employeeForm.get('password')?.errors?.['minlength'] && employeeForm.get('password')?.touched">
+                        Password must be at least 8 characters long.
+                    </div>
+                </div>
+            </label>
+
+            <!-- Confirm Password Input -->
+            <label class="w-full flex flex-col relative max-w-md">
+                <input placeholder=" " formControlName="confirmPassword" type="password"
+                    class="input w-full p-2 py-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200" />
+                <span class="absolute left-4 top-4 text-gray-500 text-sm cursor-text transition-all ease-out">Confirm
+                    Password</span>
+                <div class="text-red-700 mt-1" *ngIf="
+            employeeForm.hasError('mismatch') &&
+            employeeForm.get('confirmPassword')?.touched
+          ">
+                    Password and Confirm Password must match.
+                </div>
+            </label>
+
+            <!-- Submit Button -->
+            <button
+                class="submit bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-sm">
+                Submit
+            </button>
+
+            <p class="signin text-center text-gray-700">
+                Already an employee?
+                <a [routerLink]="['/form/login/employee']" class="text-blue-600 hover:text-blue-700">Login</a>
+            </p>
+        </form>
+    </div>
+</div>

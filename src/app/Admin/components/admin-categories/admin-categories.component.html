@@ -1,0 +1,16 @@
+<h1 class="text-3xl font-bold">{{ pageTitle }}</h1>
+
+<div class="contain-layout mt-16 mb-2 border border-gray-200 shadow-lg p-2 rounded-lg">
+  <div class="flex justify-end items-center mb-4">
+    <button [routerLink]="'/adminHome/add-category'" class="bg-blue-600 text-white px-4 py-2 rounded-md">Add
+      Category</button>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center mt-12 mb-20">
+    <app-card [routerLink]="['/adminHome/services', category._id]"
+      class="border border-gray-200 shadow-lg rounded-lg w-60 h-auto flex flex-col justify-between items-center p-4"
+      *ngFor="let category of categories" [title]="category.name" [image]="category.image"
+      (delete)="onDeleteCategory(category._id)" (edit)="onEditCategory(category._id)">
+    </app-card>
+  </div>
+</div>

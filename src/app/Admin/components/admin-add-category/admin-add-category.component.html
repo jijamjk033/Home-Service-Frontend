@@ -1,0 +1,44 @@
+<h1 class="text-3xl font-bold">{{ pageTitle }}</h1>
+
+<div class="contain-layout m-16 border border-gray-200 shadow-lg p-6 rounded-lg">
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()"
+        class="border border-gray-200 shadow-lg p-6 rounded-lg bg-white">
+
+        <div class="mb-6">
+            <label for="categoryName" class="block text-sm font-medium text-gray-700">Category Name</label>
+            <input type="text" id="categoryName" formControlName="categoryName"
+                class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-300 focus:border-blue-300 sm:text-sm"
+                placeholder="Enter category name">
+            <div class="text-red-700 mt-1">
+                <div
+                    *ngIf="categoryForm.get('categoryName')?.errors?.['required'] && categoryForm.get('categoryName')?.touched">
+                    Name is required.
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <label for="categoryImage" class="block text-sm font-medium text-gray-700">Category Image</label>
+            <div class="border-dashed border-2 border-gray-300 rounded-md p-6 flex justify-center items-center">
+                <input type="file" id="categoryImage" (change)="onImageUpload($event)" class="hidden">
+                <label for="categoryImage" class="cursor-pointer flex flex-col items-center">
+                    <img [src]="uploadedImageUrl ? uploadedImageUrl : '../../../../assets/image upload button.jpg'"
+                        alt="image" class="h-12 w-12 mb-2">
+                    <span class="text-blue-500">Drag & Drop or <span class="underline">choose file</span> to
+                        upload</span>
+                    <p class="text-sm text-gray-500">Supported formats: JPEG, PNG, JPG, WEBP</p>
+                </label>
+            </div>
+            <div *ngIf="errorMessage" class="text-red-500 mt-2 flex justify-center ">{{ errorMessage }}</div>
+        </div>
+        <div *ngIf="loading" class="loader-overlay">
+            <div class="loader"></div>
+        </div>
+        <div class="flex justify-end space-x-4">
+            <button type="button" (click)="onCancel()"
+                class="border border-gray-300 bg-gray-100 text-gray-800 px-4 py-2 rounded">Cancel</button>
+            <button type="submit" [disabled]="categoryForm.invalid"
+                class="bg-blue-600 text-white px-4 py-2 rounded">Add</button>
+        </div>
+    </form>
+</div>

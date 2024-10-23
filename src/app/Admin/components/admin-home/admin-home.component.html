@@ -1,0 +1,9 @@
+<div class="flex h-screen overflow-auto">
+    <app-admin-sidebar></app-admin-sidebar>
+    <div class="flex-1 p-4 relative overflow-hidden">
+        <div class="absolute top-6 right-6">
+            <a (click)="logout()" class="text-lg font-semibold text-gray-700 hover:text-blue-900">Logout</a>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

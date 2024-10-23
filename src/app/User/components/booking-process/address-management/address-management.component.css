@@ -1,0 +1,25 @@
+.address-management {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.address-management ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.address-management ul li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.address-management input[type="radio"] {
+    margin-right: 10px;
+}
+
+.address-management a {
+    color: #2070c6;
+    cursor: pointer;
+}

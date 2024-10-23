@@ -1,0 +1,83 @@
+<div class="fixed inset-0 flex justify-center items-center bg-transparent">
+    <div *ngIf="isRegisterLoading" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+    <form [formGroup]="userForm" (submit)="signupUser()"
+        class="form flex flex-col items-center gap-4 w-full max-w-lg bg-white p-6 rounded-xl border border-gray-300 shadow-lg">
+        <p class="title text-2xl font-semibold text-black text-center">New Registration</p>
+        <p class="message text-center text-gray-700 mb-3">Register now and get full access to our services.</p>
+        <div *ngIf="errorMessage">
+            {{errorMessage}}
+        </div>
+        <label class="relative w-full flex flex-col">
+            <input type="text" formControlName="name" name="name" placeholder=" Name "
+                class="input w-full max-w-md p-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200">
+            <div class="text-red-700 mt-1">
+                <div *ngIf="userForm.get('name')?.errors?.['required'] && userForm.get('name')?.touched">
+                    Name is required.
+                </div>
+                <div *ngIf="userForm.get('name')?.errors?.['minlength'] && userForm.get('name')?.touched">
+                    Name must be at least 4 characters long.
+                </div>
+            </div>
+        </label>
+
+        <label class="relative w-full flex flex-col">
+            <input type="email" formControlName="email" name="email" placeholder=" Email "
+                class="input w-full max-w-md p-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200">
+            <div class="text-red-700 mt-1">
+                <div *ngIf="userForm.get('email')?.errors?.['required'] && userForm.get('email')?.touched">
+                    Email is required.
+                </div>
+                <div *ngIf="userForm.get('email')?.errors?.['email'] && userForm.get('email')?.touched">
+                    Please enter a valid email address.
+                </div>
+            </div>
+        </label>
+
+        <label class="relative w-full flex flex-col">
+            <input type="text" formControlName="phone" name="phone" placeholder=" Phone Number "
+                class="input w-full max-w-md p-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200">
+            <div class="text-red-700 mt-1">
+                <div *ngIf="userForm.get('phone')?.errors?.['required'] && userForm.get('phone')?.touched">
+                    Phone number is required.
+                </div>
+                <div *ngIf="userForm.get('phone')?.errors?.['pattern'] && userForm.get('phone')?.touched">
+                    Please enter a valid 10-digit phone number.
+                </div>
+            </div>
+        </label>
+
+        <label class="relative w-full flex flex-col">
+            <input type="password" formControlName="password" name="password" placeholder=" Password "
+                class="input w-full max-w-md p-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200">
+            <div class="text-red-700 mt-1">
+                <div *ngIf="userForm.get('password')?.errors?.['required'] && userForm.get('password')?.touched">
+                    Password is required.
+                </div>
+                <div *ngIf="userForm.get('password')?.errors?.['minlength'] && userForm.get('password')?.touched">
+                    Password must be at least 8 characters long.
+                </div>
+            </div>
+        </label>
+
+        <label class="relative w-full flex flex-col">
+            <input type="password" formControlName="confirmPassword" name="confirmPassword"
+                placeholder=" Confirm Password "
+                class="input w-full max-w-md p-4 border border-gray-300 rounded-lg outline-none focus:ring focus:ring-blue-200">
+            <div class="text-red-700 mt-1"
+                *ngIf="userForm.hasError('mismatch') && userForm.get('confirmPassword')?.touched">
+                Password and Confirm Password must match.
+            </div>
+        </label>
+
+        <button
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-sm"
+            [disabled]="userForm.invalid">Submit
+        </button>
+
+        <p class="signin text-center text-gray-700">Already have an account?
+            <a [routerLink]="['/form/login/user']" class="text-blue-600 hover:text-blue-700">Login</a>
+        </p>
+    </form>
+</div>

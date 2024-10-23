@@ -1,0 +1,74 @@
+<div class="container mx-auto p-4">
+    <div class="flex justify-between mb-10">
+        <h2 class="text-2xl font-bold mb-4">Time Slots</h2>
+        <div>
+            <button (click)="showAddSlotModal()" class="bg-blue-600 text-white px-4 py-2 rounded-md my-button">Add new
+                slot</button>
+            <button [disabled]="timeSlots.length === 0" (click)="deleteAllSlots()"
+                class="bg-red-600 text-white px-4 py-2 rounded-md ml-4 my-button">Delete All
+                Slots</button>
+        </div>
+    </div>
+    <div *ngIf="errorMessage" class="mb-4 text-red-600">
+        {{ errorMessage }}
+    </div>
+    <!-- Modal for adding new slots -->
+    <ng-container *ngIf="isAddSlotModalVisible">
+        <div class="modal">
+            <div class="modal-content">
+                <h2 class="text-xl font-semibold mb-4">Add New Time Slots</h2>
+                <form [formGroup]="timeSlotForm" (ngSubmit)="onSubmit()">
+                    <div class="flex space-x-4">
+                        <div class="flex-1">
+                            <label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
+                            <input type="date" id="startDate" formControlName="startDate"
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="flex-1">
+                            <label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
+                            <input type="date" id="endDate" formControlName="endDate"
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4 mt-4">
+                        <div class="flex-1">
+                            <label for="startTime" class="block text-sm font-medium text-gray-700">Start Time</label>
+                            <input type="time" id="startTime" formControlName="startTime"
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="flex-1">
+                            <label for="endTime" class="block text-sm font-medium text-gray-700">End Time</label>
+                            <input type="time" id="endTime" formControlName="endTime"
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                        </div>
+                    </div>
+                    <div class="flex justify-around">
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 me-6">Generate
+                            Slots</button>
+                        <button type="button" (click)="hideAddSlotModal()"
+                            class="bg-gray-500 text-white px-4 py-2 rounded-md mt-4">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Display existing time slots -->
+    <div class="mt-6">
+        <h3 class="text-xl font-semibold mb-4">Existing Time Slots:</h3>
+        <div *ngIf="timeSlots.length === 0">
+            <p>No time slots available.</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div *ngFor="let slot of timeSlots" 
+                 class="relative p-4 bg-white border border-gray-300 rounded-md shadow-md text-center">
+                <p>{{ formatTimeSlot(slot) }}</p>
+                <button (click)="deleteTimeSlot(slot._id)" 
+                        class="absolute top-1 right-1  bg-red-400 text-white w-5 h-6 rounded-md delete-btn">
+                    X
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+</div>

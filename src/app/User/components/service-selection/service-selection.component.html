@@ -1,0 +1,17 @@
+<div>
+    <div class="relative bg-cover bg-center h-96" style="background-image: url('../../../../assets/cover\ image.png');">
+    </div>
+    <div class="service-page mt-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-rows-2 gap-6">
+                <app-about-service [description]="serviceDescription"></app-about-service>
+                <app-address-management></app-address-management>
+            </div>
+            <app-employee-selection></app-employee-selection>
+        </div>
+        <div class="mt-8">
+            <app-related-services></app-related-services>
+        </div>
+    </div>
+</div>
+
