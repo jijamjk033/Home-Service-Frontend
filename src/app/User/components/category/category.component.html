@@ -6,16 +6,11 @@
         </div>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-24 mb-20 pb-8">
-        <div *ngFor="let category of categories"
-            class="bg-white rounded-lg shadow-md flex flex-col items-center justify-between p-2 h-64 w-full max-w-xs mx-auto">
-            <img [src]="category.image" alt="{{ category.name }}" class="h-28 w-28 object-cover mb-4 rounded-full">
-            <div class="text-center">
-                <h2 class="text-lg font-semibold mb-2">{{ category.name }}</h2>
-                <p class="text-gray-600 text-sm">{{ category.description }}</p>
-                <a [routerLink]="['/book/services',category._id]" class="bg-blue-500 text-white px-3 py-2 rounded-2xl mt-4 mb-4 inline-block">
-                    Book Now
-                </a>
-            </div>
+        <div [routerLink]="['/book/services',category._id]" *ngFor="let category of categories"
+            class="service-item text-center p-8 cursor-pointer">
+            <img [src]="category.image || 'default-image-path.jpg'" alt="{{category.name}}"
+                class="mx-auto mb-4 w-40 h-40 rounded-full object-cover">
+            <h1 class="text-2xl font-semibold">{{category.name}}</h1>
         </div>
     </div>
 </div>

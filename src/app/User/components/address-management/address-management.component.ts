@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { userService } from '../../../services/userService';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AddAddressComponent } from '../add-address/add-address.component';
-import { Address } from '../../../models/address';
 import { catchError, of } from 'rxjs';
 import { NgFor } from '@angular/common';
+import { userService } from '../../services/userService';
+import { Address } from '../../models/address';
 
 @Component({
   selector: 'app-address-management',
@@ -18,6 +18,8 @@ export class AddressManagementComponent implements OnInit {
   selectedAddressId: string = '';
   isModalVisible: boolean = false;
   userId: string = '';
+
+  @Output() addressSelected = new EventEmitter<string>();
 
   constructor(private userService: userService) { }
 
@@ -38,7 +40,6 @@ export class AddressManagementComponent implements OnInit {
           (response) => {
             if (response && response.data) {
               this.addresses = response.data;
-              console.log('Addresses fetched successfully:', this.addresses);
             } else {
               console.error('Error: No address data received');
             }
@@ -74,5 +75,6 @@ export class AddressManagementComponent implements OnInit {
 
   onSelectAddress(addressId: string) {
     this.selectedAddressId = addressId;
+    this.addressSelected.emit(this.selectedAddressId);
   }
 }

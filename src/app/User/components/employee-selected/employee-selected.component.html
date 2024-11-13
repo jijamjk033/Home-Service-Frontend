@@ -1,0 +1,25 @@
+<div class="grid grid-rows-2 gap-6">
+    <ng-container *ngIf="employeeSelected && slotBooked; else selectPrompt">
+        <div class="p-4 bg-gray-100 rounded shadow-md">
+            <h3 class="text-lg font-bold">Selected Employee</h3>
+            <p>Name: {{ employeeDetails.name }}</p>
+            <p>Experience: {{ employeeDetails.yearsOfExperience }}</p>
+
+        </div>
+        <div class="p-4 bg-gray-100 rounded shadow-md">
+            <h3 class="text-lg font-bold">Selected Time Slot</h3>
+            <p>Date: {{ timeSlotDetails.date }}</p>
+            <p>Time slot: {{timeSlotDetails.startTime}}</p>
+        </div>
+
+        <button (click)="clearSelection()" class="mt-4 p-2 bg-blue-500 text-white rounded">
+            Edit
+        </button>
+    </ng-container>
+
+    <ng-template #selectPrompt>
+        <div class="p-4 bg-yellow-100 rounded shadow-md">
+            <p>Please select an employee and time slot to proceed.</p>
+        </div>
+    </ng-template>
+</div>

@@ -5,8 +5,9 @@ import { ServicesProvidedComponent } from '../components/services-provided/servi
 import { ServiceBookingComponent } from '../components/service-booking/service-booking.component';
 import { ServiceSelectionComponent } from '../components/service-selection/service-selection.component';
 import { TimeslotSelectionComponent } from '../components/timeslot-selection/timeslot-selection.component';
-import { AddAddressComponent } from '../components/booking-process/add-address/add-address.component';
 import { userAuthGuard } from '../guards/user-auth.guard';
+import { EmployeeSelectedComponent } from '../components/employee-selected/employee-selected.component';
+import { CheckoutPageComponent } from '../components/checkout-page/checkout-page.component';
 
 export const userRoutes: Routes = [
 
@@ -17,8 +18,9 @@ export const userRoutes: Routes = [
         path: 'book', component: ServiceBookingComponent, children: [
             { path: 'categories', component: CategoryComponent },
             { path: 'services/:id', component: ServicesProvidedComponent },
-            { path: 'service-selection/:id', component: ServiceSelectionComponent, canActivate: [userAuthGuard]},
+            { path: 'service-selection/:id', component: ServiceSelectionComponent},
             { path: 'timeslots/:id', component: TimeslotSelectionComponent, canActivate: [userAuthGuard]},
+            { path: 'checkout/:id', component:CheckoutPageComponent, canActivate:[userAuthGuard]}
         ]
     },
 

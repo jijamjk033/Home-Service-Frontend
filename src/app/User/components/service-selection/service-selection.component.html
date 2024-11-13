@@ -1,17 +1,27 @@
 <div>
-    <div class="relative bg-cover bg-center h-96" style="background-image: url('../../../../assets/cover\ image.png');">
+    <div class="relative bg-cover bg-center h-96"
+        style="background-image: url('../../../../assets/background\ cover.jpg');">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <h1 class="text-white text-4xl font-bold">Service Providers</h1>
+        </div>
     </div>
     <div class="service-page mt-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="grid grid-rows-2 gap-6">
-                <app-about-service [description]="serviceDescription"></app-about-service>
-                <app-address-management></app-address-management>
+            <div *ngIf="service" class="service-description p-6 rounded-md pb-8 mt-8 ml-14">
+                <div>
+                    <h1 class="text-4xl font-semibold text-gray-600 mb-4">{{categoryName}} work</h1>
+                    <div class="border shadow-md w-3/4 p-5 mt-10 pl-5">
+                        <h1 class="text-3xl font-semibold text-gray-600 mb-4">{{service.name}}</h1>
+                        <p class="mt-8 text-gray-500 ">{{service.description}}</p>
+                        <span class="inline-block mt-11 px-1 py-1 font-semibold text-xl text-gray-500 ">
+                            Price: ₹ {{ service.price }}
+                        </span>
+                    </div>
+                </div>
+            </div>  
+            <div class="mt-8">
+                <app-employee-selection></app-employee-selection>
             </div>
-            <app-employee-selection></app-employee-selection>
-        </div>
-        <div class="mt-8">
-            <app-related-services></app-related-services>
         </div>
     </div>
 </div>
-

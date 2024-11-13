@@ -5,10 +5,10 @@ import { inject } from '@angular/core';
 export const userAuthGuard: CanActivateFn = (route, state) => {
   const backendService = inject(userService);
   const router = inject(Router);
-
   if (backendService.isLoggedIn()) {
     return true;
   } else {
+    backendService.setRedirectUrl(state.url);
     router.navigate(['/form/userLogin']);
     return false;
   }

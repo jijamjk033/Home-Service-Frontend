@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RelatedServicesComponent } from './related-services.component';
+import { CheckoutPageComponent } from './checkout-page.component';
 
-describe('RelatedServicesComponent', () => {
-  let component: RelatedServicesComponent;
-  let fixture: ComponentFixture<RelatedServicesComponent>;
+describe('CheckoutPageComponent', () => {
+  let component: CheckoutPageComponent;
+  let fixture: ComponentFixture<CheckoutPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RelatedServicesComponent]
+      imports: [CheckoutPageComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RelatedServicesComponent);
+    fixture = TestBed.createComponent(CheckoutPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

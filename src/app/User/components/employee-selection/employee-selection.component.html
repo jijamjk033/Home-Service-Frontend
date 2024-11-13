@@ -1,0 +1,21 @@
+<div class="shadow-lg border-gray-300 rounded-lg p-5 mr-10 pl-12 pr-10 mb-14">
+    <h3 class="text-4xl text-gray-600 font-semibold mb-7 pt-6">Service Providers</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div *ngFor="let employee of displayedEmployees" class="flex items-center border rounded-lg p-6 shadow-lg">
+            <div class="w-12 h-12 mr-2 rounded-full bg-gray-200 flex-shrink-0">
+                <img [src]="'../../../../assets/background\ cover.jpg'" alt="{{employee.name}}" class="w-full h-full object-cover rounded-full">
+            </div>
+            <div class="flex-1 ml-6">
+                <h4 class="text-lg font-semibold text-gray-700">{{ employee.name }}</h4>
+                <p class="text-gray-500">Experience: {{ employee.yearsOfExperience }}</p>
+                <p class="text-gray-500">Rating: </p>
+            </div>
+            <div class="flex flex-col items-end">
+                <button (click)="onEmployeeSelected(employee._id)" [routerLink]="['/book/timeslots',employee._id]"
+                    class="bg-blue-500 text-white font-medium px-2 py-2 rounded-lg hover:bg-blue-800 mb-2">
+                    Book-slot
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

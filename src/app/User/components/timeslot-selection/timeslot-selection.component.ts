@@ -1,22 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EmployeeService } from '../../../employee/services/employeeService.service';
-import { RelatedServicesComponent } from '../booking-process/related-services/related-services.component';
 import { EmployeeModel } from '../../models/employeeModel';
-import { AdminServices } from '../../../Admin/services/adminService';
 import { NgFor, NgIf } from '@angular/common';
 import { timeSlotsResponse } from '../../../employee/interface/employeeInterface';
+import { userService } from '../../services/userService';
+import { FormsModule } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { setTimeSlotId } from '../../../state/booking/booking.actions';
+import { BookingState } from '../../../state/booking/booking.state';
 
 @Component({
   selector: 'app-timeslot-selection',
   standalone: true,
-  imports: [RelatedServicesComponent, NgFor, NgIf],
+  imports: [NgFor, NgIf, FormsModule,RouterModule],
   templateUrl: './timeslot-selection.component.html',
   styleUrl: './timeslot-selection.component.css'
 })
+
 export class TimeslotSelectionComponent implements OnInit {
   employeeId: string = '';
-  timeSlots: any[] = [];
+  timeSlots: timeSlotsResponse[] = [];
   employeeDetails: EmployeeModel = {
     name: '',
     phone: '',
@@ -27,13 +31,34 @@ export class TimeslotSelectionComponent implements OnInit {
     is_verified: false,
     _id: ''
   };
+  selectedDate: string = '';
+  availableDates: { date: string; label: string }[] = [];
+  slotSelected:string = '';
 
-  constructor(private route: ActivatedRoute, private employeeService: EmployeeService) { }
+  constructor(private route: ActivatedRoute, private employeeService: EmployeeService,private store:Store<BookingState> ,private userService: userService, private router: Router) { }
 
   ngOnInit(): void {
     this.employeeId = this.route.snapshot.paramMap.get('id')!;
+    this.generateAvailableDates();
     this.loadEmployeeDetails();
-    this.loadExistingTimeSlots();
+  }
+
+  generateAvailableDates(): void {
+    const today = new Date();
+    for (let i = 1; i <= 4; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+      const monthName = date.toLocaleDateString('en-US', { month: 'short' });
+      const dayOfMonth = date.getDate();
+      const dateString = date.toISOString().split('T')[0];
+      this.availableDates.push({
+        date: dateString,
+        label: `${dayName} - ${dayOfMonth} ${monthName}`
+      });
+    }
+    this.selectedDate = this.availableDates[0].date;
+    this.loadAvailableTimeSlots();
   }
 
   loadEmployeeDetails(): void {
@@ -51,57 +76,47 @@ export class TimeslotSelectionComponent implements OnInit {
     );
   }
 
-
-  loadExistingTimeSlots(): void {
-    this.employeeService.getTimeSlots(this.employeeId).subscribe(
-      (response: any) => {
-        if (response.success) {
-          this.timeSlots = response.data;
-        } else {
-          console.error('Error: No time slots found');
-        }
-      },
-      (error) => {
-        console.error('Error fetching time slots:', error);
-      }
-    );
-  }
-
-
-  bookTimeSlot(slotId: string): void {
-    this.employeeService.bookTimeSlot(this.employeeId, slotId).subscribe(
-      (response: any) => {
-        if (response.success) {
-          console.log('Time slot booked successfully');
-          this.loadExistingTimeSlots();
-        } else {
-          console.error('Error booking time slot:', response.message);
-        }
-      },
-      (error) => {
-        console.error('Error booking time slot:', error);
-      }
-    );
-  }
-  
   formatTimeSlot(slot: timeSlotsResponse): string {
-    const date = new Date(slot.date);
-    const formattedDate =
-      ('0' + date.getDate()).slice(-2) + '-' +
-      ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
-      date.getFullYear();
 
     const startTime = this.formatTime(slot.startTime);
     const endTime = this.formatTime(slot.endTime);
 
-    return `${formattedDate},  ${startTime} - ${endTime}`;
+    return `${startTime} - ${endTime}`;
   }
 
   private formatTime(time: string): string {
     const [hours, minutes] = time.split(':').map(Number);
     const period = hours >= 12 ? 'PM' : 'AM';
-    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
+    const formattedHours = hours % 12 || 12;
     return `${('0' + formattedHours).slice(-2)}:${('0' + minutes).slice(-2)} ${period}`;
+  }
+
+  onDateChange(): void {
+    if (this.selectedDate) {
+      this.loadAvailableTimeSlots();
+    }
+  }
+
+  loadAvailableTimeSlots(): void {
+    this.userService.fetchTimeSlots(this.employeeId, this.selectedDate).subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.timeSlots = response.data.filter((slot: timeSlotsResponse) => !slot.isBooked);
+        } else {
+          console.error('Error: No time slots found for this date');
+          this.timeSlots = [];
+        }
+      },
+      (error) => {
+        console.error('Error fetching time slots:', error);
+        this.timeSlots = [];
+      }
+    );
+  }
+
+  timeslotSelected(slotId:string){
+    this.slotSelected = slotId;
+    this.store.dispatch(setTimeSlotId({timeSlotId: slotId}));
   }
 
 }

@@ -22,17 +22,17 @@ export class EmployeeService {
 
   constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) { }
 
-  private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn()); 
+  private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
   isLoggedIn$ = this.loggedIn.asObservable();
 
   isLoggedIn(): boolean {
     if (isPlatformBrowser(this.platformId)) {
       const token = this.getToken();
       const isTrue = token ? !this.jwtHelper.isTokenExpired(token) : false;
-      
+
       return isTrue;
     }
-    return false; 
+    return false;
   }
 
   getToken(): string | null {
@@ -44,9 +44,9 @@ export class EmployeeService {
     return this.token;
   }
 
-  login(data:object):Observable<ResponseModel<employeeLoginResponse>>{
-    this.loggedIn.next(true); 
-    return this.http.post<ResponseModel<employeeLoginResponse>>(`${this.apiKey}/login`,data)
+  login(data: object): Observable<ResponseModel<employeeLoginResponse>> {
+    this.loggedIn.next(true);
+    return this.http.post<ResponseModel<employeeLoginResponse>>(`${this.apiKey}/login`, data)
   }
 
   logout() {
@@ -62,7 +62,7 @@ export class EmployeeService {
   }
 
   verifyOtp(otp: string, token: string): Observable<ResponseModel<VerifyOtpResponse>> {
-    const body = { otp, token }; 
+    const body = { otp, token };
     return this.http.post<ResponseModel<VerifyOtpResponse>>(`${this.apiKey}/verify-otp`, body);
   }
 
@@ -71,7 +71,7 @@ export class EmployeeService {
     return this.http.post<ResponseModel<ResendOtpResponse>>(`${this.apiKey}/resend-otp`, body);
   }
 
-  getEmployeeDetails(id:string): Observable<ResponseModel<EmployeeModel>> {
+  getEmployeeDetails(id: string): Observable<ResponseModel<EmployeeModel>> {
     return this.http.get<ResponseModel<EmployeeModel>>(`${this.apiKey}/get-employeeDetails/${id}`);
   }
 
@@ -79,23 +79,15 @@ export class EmployeeService {
     return this.http.post<ResponseModel<timeSlotscreationResponse>>(`${this.apiKey}/addTimeslots`, data);
   }
 
-  getTimeSlots(id:string): Observable<ResponseModel<timeSlotsResponse[]>> {
+  getTimeSlots(id: string): Observable<ResponseModel<timeSlotsResponse[]>> {
     return this.http.get<ResponseModel<timeSlotsResponse[]>>(`${this.apiKey}/get-timeslots/${id}`);
   }
 
-  bookTimeSlot(employeeId: string, slotId: string): Observable<ResponseModel<BookedTimeslot>>{
-    const data = {
-      employeeId: employeeId,
-      slotId: slotId,
-    };
-    return this.http.post<ResponseModel<BookedTimeslot>>(`${this.apiKey}/bookTimeslots`, data);
-  }
-
-  deleteAllSlots(id:string): Observable<ResponseModel<timeslotDeletionResponse>>{
+  deleteAllSlots(id: string): Observable<ResponseModel<timeslotDeletionResponse>> {
     return this.http.delete<ResponseModel<timeslotDeletionResponse>>(`${this.apiKey}/delete-timeslots/${id}`);
   }
 
-  deleteSlotById(id:string): Observable<ResponseModel<timeslotDeletionResponse>>{
+  deleteSlotById(id: string): Observable<ResponseModel<timeslotDeletionResponse>> {
     return this.http.delete<ResponseModel<timeslotDeletionResponse>>(`${this.apiKey}/delete-timeslotsById/${id}`);
   }
 }

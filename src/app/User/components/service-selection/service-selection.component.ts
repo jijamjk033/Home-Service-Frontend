@@ -1,33 +1,54 @@
 import { Component, OnInit } from '@angular/core';
-import { TableComponent } from '../../../common/components/table/table.component';
-import { NgFor } from '@angular/common';
-import { AboutServiceComponent } from '../booking-process/about-service/about-service.component';
-import { AddressManagementComponent } from '../booking-process/address-management/address-management.component';
-import { EmployeeSelectionComponent } from '../booking-process/employee-selection/employee-selection.component';
-import { RelatedServicesComponent } from '../booking-process/related-services/related-services.component';
-import { ActivatedRoute} from '@angular/router';
+import { NgFor, NgIf } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { ServicesService } from '../../../Admin/services/services.service';
+import { IService } from '../../models/serviceModel';
+import { userService } from '../../services/userService';
+import { EmployeeSelectedComponent } from '../employee-selected/employee-selected.component';
+import { CategoryService } from '../../../Admin/services/category.service';
+import { EmployeeSelectionComponent } from '../employee-selection/employee-selection.component';
+import { setServiceId } from '../../../state/booking/booking.actions';
+import { Store } from '@ngrx/store';
+import { BookingState } from '../../../state/booking/booking.state';
 
 @Component({
   selector: 'app-service-selection',
   standalone: true,
-  imports: [TableComponent, NgFor, AboutServiceComponent, AddressManagementComponent, EmployeeSelectionComponent, RelatedServicesComponent],
+  imports: [NgIf, NgFor, EmployeeSelectionComponent, EmployeeSelectedComponent],
   templateUrl: './service-selection.component.html',
   styleUrl: './service-selection.component.css'
 })
 export class ServiceSelectionComponent implements OnInit {
-  serviceId:string = '';
-  serviceDescription:string ='';
-  
-  constructor(private route: ActivatedRoute, private serviceService: ServicesService) { }
+  serviceId: string = '';
+  service: IService | null = null;
+  categoryId: string = '';
+  categoryName: string = '';
+
+  constructor(
+    private route: ActivatedRoute,
+    private serviceService: ServicesService,
+    private categoryService: CategoryService,
+    private store: Store<BookingState>
+  ) { }
 
   ngOnInit(): void {
     this.serviceId = this.route.snapshot.paramMap.get('id')!;
+    this.store.dispatch(setServiceId({ serviceId: this.serviceId }));
     this.serviceService.getServiceById(this.serviceId).subscribe({
       next: (response) => {
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          const service = response.data[0];
-          this.serviceDescription = service.description;
+        if (response.data && typeof response.data === 'object') {
+          this.service = response.data as IService;
+          this.categoryId = this.service.category;
+
+          this.categoryService.getCategoryById(this.categoryId).subscribe({
+            next: (categoryResponse) => {
+              this.categoryName = categoryResponse.data.name;
+            },
+            error: (err) => {
+              console.error('Error fetching category', err);
+            }
+          });
+
         } else {
           console.error('No service data found');
         }

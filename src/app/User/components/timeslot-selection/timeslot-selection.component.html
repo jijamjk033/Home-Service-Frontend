@@ -1,34 +1,41 @@
 <div>
     <div class="relative bg-cover bg-center h-96" style="background-image: url('../../../../assets/cover\ image.png');">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <h1 class="text-white text-4xl font-bold"></h1>
+        </div>
     </div>
     <div class="service-page mt-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div class="md:col-span-1 shadow-md rounded-lg pl-14 pb-10">
-                <div class="employee-details">
-                    <h2 class="text-2xl font-semibold mt-4 mb-4">{{ employeeDetails.name }}</h2>
+            <div class="md:col-span-1 pl-14 pb-10">
+                <div class="employee-details shadow-md rounded-lg p-6 mt-10">
+                    <h1 class="text-2xl font-medium mt-4 mb-4">Professional Details</h1>
+                    <h2 class=" mt-4 mb-4">Name:{{ employeeDetails.name }}</h2>
                     <p class="mb-4">Role: {{ employeeDetails.role }}</p>
                     <p>Experience: {{ employeeDetails.yearsOfExperience }} years</p>
+
                 </div>
             </div>
             <div class="md:col-span-2">
-                <div class="timeslots shadow-md rounded-lg p-4">
-                    <h3 class="text-2xl font-semibold mb-4">Available Timeslots</h3>
+                <div class="timeslots shadow-md rounded-lg p-8 mt-10 mr-8">
+                    <h3 class="text-2xl font-medium mb-4">When should the professional arrive?</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <button *ngFor="let date of availableDates" (click)="selectedDate = date.date; onDateChange()"
+                            [class.bg-blue-100]="selectedDate === date.date" class="p-2 rounded-md border">
+                            {{ date.label }}
+                        </button>
+                    </div>
+                    <h3 class="text-2xl font-medium mb-4 mt-11">Select the Timeslot you want!</h3>
                     <div *ngIf="timeSlots.length === 0">
                         <p>No time slots available.</p>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        <div *ngFor="let slot of timeSlots" (click)="bookTimeSlot(slot._id)"
-                        class="relative p-4 bg-white border border-gray-300 rounded-md shadow-md text-center">
-                       <p>{{ formatTimeSlot(slot) }}</p>
-                   </div>
-                   
+                        <div *ngFor="let slot of timeSlots" [routerLink]="['/book/checkout',slot._id]" (click)="timeslotSelected(slot._id)"
+                            class="relative p-4 bg-white border border-gray-300 rounded-md shadow-md text-center cursor-pointer">
+                            <p>{{ formatTimeSlot(slot) }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="mt-8">
-            <app-related-services></app-related-services>
         </div>
     </div>
 </div>

@@ -1,12 +1,11 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, input, Input } from '@angular/core';
+import { Component, EventEmitter, input, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [NgFor,FormsModule,NgIf,RouterModule],
+  imports: [NgFor,FormsModule,NgIf],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })
@@ -18,7 +17,7 @@ export class TableComponent {
 
   @Input() headerKeys: string[] = [];
   @Input() actions:boolean = false;
-  @Input() employeeId:string = '';
+  @Output() employeeSelected = new EventEmitter<string>();
 
   currentPage: number = 1;
   rowsPerPage: number = 12;
@@ -30,6 +29,10 @@ export class TableComponent {
 
   ngOnChanges(): void {
     this.updateFilteredData();
+  }
+
+  ngOnInit(){
+
   }
 
   updateFilteredData(): void {

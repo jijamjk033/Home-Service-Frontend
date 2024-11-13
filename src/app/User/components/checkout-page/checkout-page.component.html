@@ -1,0 +1,79 @@
+<div class="relative bg-cover bg-center h-96"
+    style="background-image: url('../../../../assets/background\ cover.jpg');">
+    <div class="absolute inset-0 flex items-center justify-center">
+        <h1 class="text-white text-4xl font-bold">Summary</h1>
+    </div>
+</div>
+<div class="checkout-container lg:flex lg:space-x-8 p-6">
+    <div class="w-full lg:w-1/2 space-y-6 mt-6 lg:mt-0">
+        <div class="bg-white rounded-lg p-6">
+            <ng-container>
+                <app-address-management (addressSelected)="onAddressSelected($event)"></app-address-management>
+            </ng-container>
+        </div>
+    </div>
+    <div class="w-full lg:w-1/2 space-y-6 ml-16 p-6 mt-6 border shadow-lg">
+        <h2 class="text-2xl font-semibold text-gray-700 pt-2">Your Order</h2>
+        <!-- Service Details -->
+        <div class="border shadow-md">
+            <div *ngIf="service" class="service-description rounded-md p-6 flex justify-between items-center">
+                <h1 class="text-xl font-medium text-gray-700">{{ categoryName }} work - {{ service.name }}</h1>
+                <span class="border border-gray-300 rounded-2xl bg-green-100 px-3 py-1 font-semibold text-black">
+                    ₹ {{ service.price }}
+                </span>
+            </div>
+            <hr class="border-t-4 border-gray-100 rounded-full mx-6 " />
+            <!-- Employee and Timeslot Details -->
+            <div class="employee-details rounded-lg mt-2 p-8">
+                <div class="">
+                    <h2 class="mt-2 mb-2 text-lg font-medium text-gray-700">{{ employeeDetails.name }}</h2>
+                    <h2 class="mt-2 mb-2 text-base font-normal text-gray-600">{{ employeeDetails.role }}</h2>
+                    <p class="text-gray-600 mt-2 text-base">
+                        <i class="fas fa-clock mr-2" aria-hidden="true"></i>
+                        {{ timeSlotDetails.date | date: 'EEE, MMM dd' }}
+                        [{{ convertTo12HourFormat(timeSlotDetails.startTime) }} - {{
+                        convertTo12HourFormat(timeSlotDetails.endTime) }}]
+                    </p>
+                </div>
+            </div>
+            <div class="checkout-summary p-6 bg-gray-50 rounded-md mt-4">
+                <h3 class="text-xl font-medium text-gray-700">Checkout Summary</h3>
+                <div *ngIf="service" class="flex justify-between items-center mt-4">
+                    <span class="text-gray-600">Service Price:</span>
+                    <span class="text-gray-900 font-medium">₹ {{ service.price }}</span>
+                </div>
+                <div class="flex justify-between items-center mt-2">
+                    <span class="text-gray-600">Booking Fee:</span>
+                    <span class="text-gray-900 font-medium">₹ {{ bookingFee }}</span>
+                </div>
+                <hr class="border-t-4 border-gray-200 my-2" />
+                <div class="flex justify-between items-center mt-2">
+                    <span class="text-lg font-medium text-gray-700">Total Amount:</span>
+                    <span class="text-lg font-medium text-black">₹ {{ totalAmount }}</span>
+                </div>
+            </div>
+        </div>
+        <!-- Payment Options -->
+        <div class="bg-white rounded-lg mt-6 p-4">
+            <h2 class="text-xl font-medium mb-4 text-gray-700">Payment Options</h2>
+            <label class="flex items-center mb-3 text-gray-600">
+                <input type="radio" name="payment" value="online" class="mr-2"
+                    (change)="onPaymentModeChange('online')">
+                <span>Online Payment</span>
+            </label>
+            <label class="flex items-center mb-3 text-gray-600">
+                <input type="radio" name="payment" value="cash" class="mr-2" (change)="onPaymentModeChange('cash')">
+                <span>Cash</span>
+            </label>
+            <label class="flex items-center mb-3 text-gray-600">
+                <input type="radio" name="payment" value="wallet" class="mr-2" (change)="onPaymentModeChange('wallet')">
+                <span>Wallet</span>
+            </label>
+        </div>
+        <button class="ml-4 px-4 py-2 bg-blue-500 text-white font-medium rounded-md disabled:opacity-50 cursor-pointer" [class.bg-blue-500]="selectedPaymentMode && address"
+        [class.bg-gray-300]="!selectedPaymentMode || !address"
+            [disabled]="!selectedPaymentMode || !address" (click)="proceedToPayment()">
+            Proceed to Payment
+        </button>
+    </div>
+</div>

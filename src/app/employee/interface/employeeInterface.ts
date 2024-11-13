@@ -14,14 +14,29 @@ export interface employeeData {
 
   export interface BookedTimeslot{
     message : string;
+    success: boolean
   }
 
   export interface timeSlotsResponse {
+    _id:string,
     date: string;
     startTime: string;  
     endTime: string;
+    isBooked:boolean
   }
   
   export interface timeslotDeletionResponse{
     message : string;
+  }
+
+  export interface timeslotResponse{
+    date: string;
+    startTime: string;  
+    endTime: string;
+    employee:string;
+  }
+
+  export interface BookingResponse{
+    message : string;
+    success: boolean;
   }

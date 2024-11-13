@@ -20,8 +20,11 @@ export class UserLoginComponent {
       next: (response) => {
         localStorage.setItem('userToken', response.data.token);
         localStorage.setItem('user_id', response.data.user.id);
+        localStorage.setItem('userEmail', response.data.user.email);
         this.toastr.success(response.data.message, 'Success');
-        this.router.navigate(['/userHome']);
+        const redirectUrl = this.userService.getRedirectUrl();
+        this.userService.clearRedirectUrl();
+        this.router.navigate([redirectUrl], { replaceUrl: true });
       },
       error: (error) => {
         this.toastr.error(error.error.error, 'Error');

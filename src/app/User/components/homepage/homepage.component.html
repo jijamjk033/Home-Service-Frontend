@@ -1,12 +1,36 @@
 <app-header></app-header>
 <section class="pl-24" style="background-color: #666290;">
     <div class="container mx-auto pb-10 grid grid-cols-2 gap-8 items-center">
-        <div class="">
-            <h1 class="text-4xl font-bold text-white justify-center">Want home services</h1>
-            <h1 class="text-4xl font-bold text-white justify-center">at your doorstep?</h1>
-            <h1 class="text-4xl font-bold text-white justify-center">We can help!</h1>
-            <p class="mt-4 text-lg text-white">Free Quotes · 100% Commitment · Available 24/7</p>
-            <button class="mt-6 bg-blue-500 text-white py-3 px-8 rounded-lg">Book Now</button>
+        <div class="grid-rows-2 gap-4 items-center mt-8">
+            <div class="pt-14">
+                <h1 class="text-4xl font-bold text-white justify-center">Want home services</h1>
+                <h1 class="text-4xl font-bold text-white justify-center">at your doorstep?</h1>
+                <h1 class="text-4xl font-bold text-white justify-center">We can help!</h1>
+                <p class="mt-4 text-lg text-white">Free Quotes · 100% Commitment · Available 24/7</p>
+                <button [routerLink]="['/book/categories']"
+                    class="mt-6 bg-blue-500 text-white py-3 px-8 rounded-lg">Book Now</button>
+            </div>
+            <div class="mt-8 pt-14 grid grid-cols-4 gap-4 text-white">
+                <div class="flex flex-col items-center">
+                    <img src="../../../../assets/icon/Icon.png" alt="Home services image" class="rounded-lg w-12 h-12">
+                    <p class="mt-2 text-center">Satisfaction Guarantee</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="../../../../assets/icon/Icon time.png" alt="Home services image"
+                        class="rounded-lg w-12 h-12">
+                    <p class="mt-2 text-center">24H Availability</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="../../../../assets/icon/Icon location.png" alt="Home services image"
+                        class="rounded-lg w-12 h-12">
+                    <p class="mt-2 text-center">Available at your Location</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="../../../../assets/icon/Icon appointment.png" alt="Home services image"
+                        class="rounded-lg w-12 h-12">
+                    <p class="mt-2 text-center">Flexible Appointments</p>
+                </div>
+            </div>
         </div>
         <div class="flex w-full h-full justify-center space-x-4">
             <img src="../../../../assets/Image.png" alt="Home services image" class="rounded-lg w-1/3">
@@ -18,67 +42,81 @@
 <section class="bg-white py-16">
     <div class="container mx-auto text-center">
         <div>
-            <h2 class="text-3xl font-bold mb-4">Our Services</h2>
-            <p class="text-gray-500">You have problems with leaking pipes, broken tiles, lost keys or</p>
-            <p class="text-gray-500">want to tidy up the trees around you, of course you need our help!</p>
+            <h3 class="text-4xl font-bold mb-4">What are you looking for ?</h3>
+            <p class="text-lg text-gray-400">You have problems with leaking pipes, broken tiles, lost keys or</p>
+            <p class="text-lg text-gray-400">want to tidy up the trees around you, of course you need our help!</p>
         </div>
         <div class="grid grid-cols-4 gap-8 mt-8">
-            <div class="service-item">
-                <img src="../../../../assets/plumber-working.png" alt="Plumbing Services" class="mx-auto mb-4 w-14 h-14">
-                <h3 class="text-xl font-semibold">Plumbing Services</h3>
-                <p>Drain cleaning, pipe repair, etc.</p>
-            </div>
-            <div class="service-item">
-                <img src="../../../../assets/AC.jpg" alt="AC Services" class="mx-auto mb-4 w-14 h-14">
-                <h3 class="text-xl font-semibold">AC Services</h3>
-                <p>Drain cleaning, pipe repair, etc.</p>
-            </div>
-            <div class="service-item">
-                <img src="../../../../assets/home-painting.jpg" alt="Painting Services" class="mx-auto mb-4 w-14 h-14">
-                <h3 class="text-xl font-semibold">Painting Services</h3>
-                <p>Drain cleaning, pipe repair, etc.</p>
-            </div>
-            <div class="service-item">
-                <img src="../../../../assets/plumber-working.png" alt="Plumbing Services" class="mx-auto mb-4 w-14 h-14">
-                <h3 class="text-xl font-semibold">Plumbing Services</h3>
-                <p>Drain cleaning, pipe repair, etc.</p>
-            </div>
-            <div class="service-item">
-                <img src="../../../../assets/plumber-working.png" alt="Plumbing Services" class="mx-auto mb-4 w-14 h-14">
-                <h3 class="text-xl font-semibold">Plumbing Services</h3>
-                <p>Drain cleaning, pipe repair, etc.</p>
-            </div>
-            <div class="service-item">
-                <img src="../../../../assets/plumber-working.png" alt="Plumbing Services" class="mx-auto mb-4 w-14 h-14">
-                <h3 class="text-xl font-semibold">Plumbing Services</h3>
-                <p>Drain cleaning, pipe repair, etc.</p>
-            </div>
-            <div class="service-item">
-                <img src="../../../../assets/plumber-working.png" alt="Plumbing Services" class="mx-auto mb-4 w-14 h-14">
-                <h3 class="text-xl font-semibold">Plumbing Services</h3>
-                <p>Drain cleaning, pipe repair, etc.</p>
+            <div [routerLink]="['/book/services',category._id]" *ngFor="let category of categories.slice(0,7)" class="service-item text-center p-8 cursor-pointer">
+                <img [src]="category.image || 'default-image-path.jpg'" alt="{{category.name}}"
+                    class="mx-auto mb-4 w-40 h-40 rounded-full object-cover">
+                <h1 class="text-2xl font-semibold">{{category.name}}</h1>
             </div>
         </div>
     </div>
 </section>
 
-<section class="bg-pink-100 py-16">
-    <div class="container mx-auto flex items-center">
-      <div class="w-1/2">
-        <img src="../../../../assets/worker.png" alt="Worker Image" class="rounded-lg w-2/3 h-2/3">
-      </div>
-      <div class="w-1/2 pl-8">
-        <h2 class="text-3xl font-bold mb-4">How</h2>
-        <h2 class="text-3xl font-bold mb-4">HomeService</h2>
-        <h2 class="text-3xl font-bold mb-4">works?</h2>
-        <ul class="space-y-4">
-          <li class="text-lg">1. Book Us Anytime</li>
-          <li class="text-lg">2. Schedule Service</li>
-          <li class="text-lg">3. Your Request is Completed</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+<section class="p-16 mt-10 mb-20 w-4/5 flex items-center justify-center mx-auto"
+    style="background: repeating-linear-gradient(90deg, #FEE2E2 0, #FEE2E2 40px, white 40px, white 60px);">
+    <div class="container mx-auto max-w-screen-lg px-8 flex items-center">
+        <div class="w-1/2">
+            <img src="../../../../assets/worker.png" alt="Worker Image" class="rounded-lg w-[120%] h-[120%] -ml-16">
+        </div>
+        <div class="w-1/2 pl-8">
+            <h2 class="text-4xl font-bold mb-6">How It works?</h2>
+            <div class="space-y-8">
+                <div class="flex items-start">
+                    <h3 class="text-3xl font-semibold mr-4">1.</h3>
+                    <div>
+                        <h4 class="text-xl font-bold">Book Us Anytime</h4>
+                        <p class="text-gray-600 mt-1">You can contact us directly, and we will quickly put you in touch
+                            with our home care professionals who are ready anytime.</p>
+                    </div>
+                </div>
 
-  <app-footer></app-footer>
-  
+                <div class="flex items-start">
+                    <h3 class="text-3xl font-semibold mr-4">2.</h3>
+                    <div>
+                        <h4 class="text-xl font-bold">Schedule Service</h4>
+                        <p class="text-gray-600 mt-1">After connecting your call, our home care experts will answer your
+                            questions and provide flexible appointment times.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <h3 class="text-3xl font-semibold mr-4">3.</h3>
+                    <div>
+                        <h4 class="text-xl font-bold">Your Request is Completed</h4>
+                        <p class="text-gray-600 mt-1">Once your technician arrives, they will diagnose the problem and
+                            provide an estimate. If you decide to continue, they will get to work.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <h3 class="text-3xl font-semibold mr-4">4.</h3>
+                    <div>
+                        <h4 class="text-xl font-bold">Review and Pay</h4>
+                        <p class="text-gray-600 mt-1">After completing the job, you can review the service and complete
+                            your payment with a flexible payment option.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bg-white py-16">
+    <div class="container mx-auto text-center">
+        <div>
+            <h3 class="text-4xl font-bold mb-4">Our Services</h3>
+        </div>
+        <div class="grid grid-cols-4 gap-8 mt-8">
+            <div [routerLink]="['/book/services',category._id]" *ngFor="let category of categories.slice(0,7)" class="service-item text-center p-8 cursor-pointer">
+                <img [src]="category.image || 'default-image-path.jpg'" alt="{{category.name}}"
+                    class="mx-auto mb-4 w-40 h-40 rounded-full object-cover">
+                <h1 class="text-2xl font-semibold">{{category.name}}</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer></app-footer>
