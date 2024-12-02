@@ -21,9 +21,10 @@ export class EmployeeSelectedComponent implements OnInit {
     email: '',
     role: '',
     status: '',
-    yearsOfExperience: '',
+    yearsOfExperience: 0,
     is_verified: false,
-    _id: ''
+    _id: '',
+    rating: 0
   };
 
   timeSlotDetails: ITimeslot = {

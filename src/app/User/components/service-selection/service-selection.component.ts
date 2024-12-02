@@ -3,7 +3,6 @@ import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ServicesService } from '../../../Admin/services/services.service';
 import { IService } from '../../models/serviceModel';
-import { userService } from '../../services/userService';
 import { EmployeeSelectedComponent } from '../employee-selected/employee-selected.component';
 import { CategoryService } from '../../../Admin/services/category.service';
 import { EmployeeSelectionComponent } from '../employee-selection/employee-selection.component';

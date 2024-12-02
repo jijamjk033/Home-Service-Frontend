@@ -17,7 +17,7 @@ export class AdminServices {
 
   isLoggedIn(): boolean {
     if (typeof window !== 'undefined' && localStorage) {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('adminToken');
       return !!token; 
     }
     return false;

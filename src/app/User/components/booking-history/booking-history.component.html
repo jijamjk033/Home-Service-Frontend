@@ -1,0 +1,21 @@
+<div>
+    <div class="relative bg-cover bg-center h-96"
+        style="background-image: url('../../../../assets/background\ cover.jpg');">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <h1 class="text-white text-4xl font-bold">History</h1>
+        </div>
+    </div>
+    <div class="mx-44 my-14">
+        <ng-container *ngIf="displayedBookings.length > 0; else noServiceHistory">
+            <app-table [tableHeaders]="tableHeaders" [headerKeys]="headerKeys" [tableData]="displayedBookings"
+                (rowClicked)="onBookingClick($event)">
+            </app-table>
+        </ng-container>
+        <ng-template #noServiceHistory>
+            <div class="text-center text-gray-500 mt-10 mb-28">
+                No service history available.
+            </div>
+        </ng-template>
+    </div>
+
+</div>

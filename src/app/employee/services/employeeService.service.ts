@@ -7,7 +7,7 @@ import { ResendOtpResponse, ResponseModel, SignupResponse, VerifyOtpResponse } f
 import { employeeLoginResponse } from '../../User/models/employeeResponse';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { isPlatformBrowser } from '@angular/common';
-import { BookedTimeslot, timeslotDeletionResponse, timeSlotscreationResponse, timeSlotsResponse } from '../interface/employeeInterface';
+import { timeslotDeletionResponse, timeSlotscreationResponse, timeSlotsResponse } from '../interface/employeeInterface';
 import { EmployeeModel } from '../../User/models/employeeModel';
 
 @Injectable({

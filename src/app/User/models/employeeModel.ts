@@ -5,7 +5,8 @@ export interface EmployeeModel{
     email:string;
     role: string;
     status:string;
-    yearsOfExperience:string;
+    rating: number;
+    yearsOfExperience:number;
     is_verified:boolean;
     _id: string;
 

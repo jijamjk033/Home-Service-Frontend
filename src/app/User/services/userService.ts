@@ -8,6 +8,8 @@ import { LoginResponse, ResendOtpResponse, ResponseModel, SignupResponse, Verify
 import { isPlatformBrowser } from '@angular/common';
 import { addAddressResponse, Address, getAddressResponse } from '../models/address';
 import { BookedTimeslot, BookingResponse, timeslotResponse } from '../../employee/interface/employeeInterface';
+import { UserData } from '../interfaces/userInterface';
+import { IWallet } from '../models/walletResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -81,6 +83,11 @@ export class userService {
 
   login(data: object): Observable<ResponseModel<LoginResponse>> {
     return this.http.post<ResponseModel<LoginResponse>>(`${this.apiKey}/login`, data);
+    
+  }
+
+  getUserDataByEmail(id: string): Observable<ResponseModel<UserData>> {
+    return this.http.get<ResponseModel<UserData>>(`${this.apiKey}/get-user/${id}`);
   }
 
   addAddress(data: object): Observable<ResponseModel<addAddressResponse>> {
@@ -122,8 +129,13 @@ export class userService {
   createBooking(bookingData: {}): Observable<ResponseModel<BookingResponse>> {
     return this.http.post<ResponseModel<BookingResponse>>(`${this.apiKey}/booking`, bookingData);
   }
-  
+
   bookTimeSlot(slotId: string): Observable<ResponseModel<BookedTimeslot>> {
     return this.http.post<ResponseModel<BookedTimeslot>>(`${this.apiKey}/bookTimeslots/${slotId}`, null);
   }
+
+  getTransactions(id: string): Observable<ResponseModel<IWallet>> {
+    return this.http.get<ResponseModel<IWallet>>(`${this.apiKey}/get-transactions/${id}`);
+  }
+
 }

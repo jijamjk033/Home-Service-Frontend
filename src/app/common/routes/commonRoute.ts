@@ -11,6 +11,7 @@ import { TableComponent } from '../components/table/table.component';
 import { EmployeeLoginComponent } from '../../employee/components/employee-login/employee-login.component';
 import { UserOtpComponent } from '../../User/components/user-otp/user-otp.component';
 import { EmployeeOtpComponent } from '../../employee/components/employee-otp/employee-otp.component';
+import { ChatComponent } from '../components/chat/chat.component';
 
 
 export const commonRoutes: Routes = [
@@ -30,6 +31,7 @@ export const commonRoutes: Routes = [
             ]
       },
       { path: 'table', component: TableComponent },
+      { path: 'chat', component:ChatComponent},
 
 ];
 

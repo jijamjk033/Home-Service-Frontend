@@ -8,19 +8,30 @@ import { TimeslotSelectionComponent } from '../components/timeslot-selection/tim
 import { userAuthGuard } from '../guards/user-auth.guard';
 import { EmployeeSelectedComponent } from '../components/employee-selected/employee-selected.component';
 import { CheckoutPageComponent } from '../components/checkout-page/checkout-page.component';
+import { PaymentStatusComponent } from '../components/payment-status/payment-status.component';
+import { BookingsListComponent } from '../components/bookings-list/bookings-list.component';
+import { BookingDetailsComponent } from '../components/booking-details/booking-details.component';
+import { BookingHistoryComponent } from '../components/booking-history/booking-history.component';
+import { UserProfileComponent } from '../components/user-profile/user-profile.component';
+import { WalletComponent } from '../components/wallet/wallet.component';
 
 export const userRoutes: Routes = [
 
     { path: '', redirectTo: 'userHome', pathMatch: 'full' },
 
     { path: 'userHome', component: HomepageComponent },
-    {
-        path: 'book', component: ServiceBookingComponent, children: [
+    { path: 'userProfile', component: UserProfileComponent, canActivate: [userAuthGuard]},
+    { path: 'wallet', component: WalletComponent, canActivate:[userAuthGuard]},
+    { path: 'book', component: ServiceBookingComponent, children: [
             { path: 'categories', component: CategoryComponent },
             { path: 'services/:id', component: ServicesProvidedComponent },
             { path: 'service-selection/:id', component: ServiceSelectionComponent},
             { path: 'timeslots/:id', component: TimeslotSelectionComponent, canActivate: [userAuthGuard]},
-            { path: 'checkout/:id', component:CheckoutPageComponent, canActivate:[userAuthGuard]}
+            { path: 'checkout/:id', component:CheckoutPageComponent, canActivate:[userAuthGuard]},
+            { path: 'payment-status', component:PaymentStatusComponent, canActivate:[userAuthGuard]},
+            { path: 'booking-list', component:BookingsListComponent, canActivate: [userAuthGuard]},
+            { path: 'booking-details/:id', component: BookingDetailsComponent, canActivate: [userAuthGuard]},
+            { path: 'booking-history', component: BookingHistoryComponent, canActivate: [userAuthGuard]},
         ]
     },
 

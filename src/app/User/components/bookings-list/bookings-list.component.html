@@ -1,0 +1,12 @@
+<div>
+    <div class="relative bg-cover bg-center h-96"
+        style="background-image: url('../../../../assets/background\ cover.jpg');">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <h1 class="text-white text-4xl font-bold">Bookings</h1>
+        </div>
+    </div>
+    <div class="mx-44 my-14">
+        <app-table [tableHeaders]="tableHeaders" [headerKeys]="headerKeys" [tableData]="displayedBookings"
+            (rowClicked)="onBookingClick($event)"></app-table>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="max-w-3xl mx-auto mt-10 p-4 bg-white shadow-lg rounded-lg">
+    <div class="text-center mb-4">
+        <h2 class="text-xl font-bold">{{ booking.service }}</h2>
+        <p class="text-gray-600 text-sm">Reference Code: #{{ booking._id }}</p>
+    </div>
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+        <div>
+            <span class="text-sm font-medium px-4 py-1 rounded-full" [ngClass]="{
+                'bg-yellow-300 text-yellow-900': booking.bookingStatus === 'Pending',
+                'bg-green-300 text-green-900': booking.bookingStatus === 'Confirmed',
+                'bg-red-300 text-red-900': booking.bookingStatus === 'Cancelled'
+              }">
+                {{ booking.bookingStatus }}
+            </span>
+        </div>
+        <div class="mt-4 sm:mt-0">
+            <p class="text-gray-800 text-base font-semibold">{{ booking.date }}</p>
+        </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row justify-between mb-4 gap-4">
+        <div class="flex items-center gap-4">
+            <img [src]="booking.serviceImage" alt="Service Icon" class="w-16 h-16 rounded-full object-cover" />
+            <div>
+                <h3 class="font-semibold text-gray-900 text-base">{{ booking.service }}</h3>
+                <p class="text-gray-600 text-sm">{{ booking.category }}</p>
+            </div>
+        </div>
+        <div class="bg-gray-100 p-4 rounded-md">
+            <h4 class="text-gray-800 text-sm font-medium">Home</h4>
+            <p class="text-gray-600 text-sm">{{ booking.address.city }}</p>
+        </div>
+    </div>
+
+    <div class="text-center mb-4">
+        <h4 class="font-semibold text-gray-900 text-base">{{ booking.employee }}</h4>
+        <span class="text-sm text-gray-600">Service Provider</span>
+    </div>
+
+    <div class="bg-gray-50 p-4 rounded-md mb-4">
+        <h3 class="text-base font-semibold text-gray-900 mb-4">Billing Details</h3>
+        <div class="space-y-2">
+            <div class="flex justify-between text-sm">
+                <span>Item Total</span>
+                <span>₹{{ booking.totalAmount }}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+                <span>Item Discount</span>
+                <span>- ₹50</span>
+            </div>
+            <div class="flex justify-between text-sm">
+                <span>Service Fee</span>
+                <span>₹50</span>
+            </div>
+            <div class="flex justify-between font-semibold border-t border-gray-300 pt-2 text-sm">
+                <span>Grand Total</span>
+                <span>₹{{ booking.totalAmount }}</span>
+            </div>
+            <div class="flex justify-between mt-4 text-sm">
+                <span>Payment Mode</span>
+                <span class="capitalize">{{ booking.paymentMethod }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center flex justify-around">
+        <button *ngIf="booking.bookingStatus === 'Pending' && !booking.completed"
+            class="px-6 py-2 bg-green-500 text-white text-sm font-medium rounded-xl hover:bg-green-600"
+            (click)="acceptBooking()">
+            Accept
+        </button>
+        <button *ngIf="booking.bookingStatus === 'Pending' && !booking.completed"
+            class="px-6 py-2 bg-red-500 text-white text-sm font-medium rounded-xl hover:bg-red-600"
+            (click)="cancelBooking()">
+            Cancel
+        </button>
+        <button *ngIf="booking.bookingStatus === 'Confirmed' && !booking.completed"
+            class="px-6 py-2 bg-blue-500 text-white text-sm font-medium rounded-xl hover:bg-blue-600"
+            (click)="completeBooking()">
+            Completed
+        </button>
+        <button [routerLink]="'/chat'" *ngIf="!booking.completed && booking.bookingStatus === 'Confirmed'"
+            class="px-6 py-2 bg-blue-200 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-100">
+            Chat
+        </button>
+        <button *ngIf="booking.bookingStatus === 'Confirmed' && !booking.completed"
+            class="px-6 py-2 bg-red-500 text-white text-sm font-medium rounded-xl hover:bg-red-600"
+            (click)="cancelBooking()">
+            Cancel
+        </button>
+        <span *ngIf="booking.completed" class="text-green-500 text-xl font-medium">
+            -- Completed --
+        </span>
+    </div>
+
+
+</div>

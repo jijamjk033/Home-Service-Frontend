@@ -21,7 +21,7 @@ export class EmployeeLoginComponent {
         localStorage.setItem('employeeToken', response.data.token);
         localStorage.setItem('employee_id', response.data.employee.id);
         this.toastr.success(response.data.message, 'Success');
-        this.router.navigate(['/employeeHome']);
+        this.router.navigate(['/employeeHome/dashboard']);
       },
       error: (error) => {
         this.toastr.error(error.error.error, 'Error');

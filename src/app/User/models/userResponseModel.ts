@@ -1,4 +1,5 @@
 export interface ResponseModel<T> {
+    map(arg0: (booking: any) => { employee: any; date: string; service: any; totalAmount: any; paymentMethod: any; bookingStatus: any; }): never[];
     status: 'success' | 'error';
     data: T;
     message?: string;

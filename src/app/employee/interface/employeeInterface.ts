@@ -40,3 +40,9 @@ export interface employeeData {
     message : string;
     success: boolean;
   }
+
+  export interface bookingCancelResponse{
+    message : string;
+    success: boolean;
+    data: string;
+  }

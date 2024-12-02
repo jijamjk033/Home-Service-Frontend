@@ -12,9 +12,7 @@ import { Router } from '@angular/router';
   styleUrl: './user-login.component.css'
 })
 export class UserLoginComponent {
-
-  constructor(private router: Router, private toastr: ToastrService, private userService: userService) { }
-
+  constructor(private router: Router, private toastr: ToastrService, private userService: userService) {}
   userLogin(credentials: { email: string; password: string }) {
     this.userService.login(credentials).subscribe({
       next: (response) => {
@@ -22,7 +20,7 @@ export class UserLoginComponent {
         localStorage.setItem('user_id', response.data.user.id);
         localStorage.setItem('userEmail', response.data.user.email);
         this.toastr.success(response.data.message, 'Success');
-        const redirectUrl = this.userService.getRedirectUrl();
+        const redirectUrl = this.userService.getRedirectUrl() || '/';
         this.userService.clearRedirectUrl();
         this.router.navigate([redirectUrl], { replaceUrl: true });
       },

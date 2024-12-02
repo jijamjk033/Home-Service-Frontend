@@ -1,13 +1,11 @@
 <div class="sidebar-component w-64 h-screen bg-gray-50 text-black flex flex-col">
 
-    <nav class="flex-1 px-6 py-4 m-4 space-y-2">
-        <a class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Dashboard</a>
-        <a [routerLink]="'/employeeHome/employeeTimeSlot'" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Timeslot</a>
-        <a class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Tasks pending</a>
+    <nav class="flex-1 px-6 py-14 m-4 space-y-2">
+        <a [routerLink]="'/employeeHome/dashboard'" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Dashboard</a>
+        <a [routerLink]="'/employeeHome/employeeTimeSlot'" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Timeslots</a>
+        <a [routerLink]="'/employeeHome/bookingList'" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Tasks Pending</a>
+        <a [routerLink]="'/employeeHome/bookingHistory'" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Tasks completed</a>
+        <a [routerLink]="'/employeeHome/employeeprofile'" class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Profile</a>
         <a class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Requests</a>
-        <a class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">History</a>
-        <a class="block py-2.5 px-4 rounded text-lg font-bold hover:bg-gray-700 hover:text-white">Profile</a>
-        
     </nav>
-
 </div>

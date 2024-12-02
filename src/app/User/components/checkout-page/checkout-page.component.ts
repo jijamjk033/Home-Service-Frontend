@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BookingState } from '../../../state/booking/booking.state';
 import { setAddress } from '../../../state/booking/booking.actions';
@@ -14,11 +14,11 @@ import { userService } from '../../services/userService';
 import { ITimeslot } from '../../models/timeSlot';
 import { Address } from '../../models/address';
 import { DatePipe, NgIf } from '@angular/common';
-import { timeSlotsResponse } from '../../../employee/interface/employeeInterface';
-import { IBookingData, PaymentResponse } from '../../models/bookingInterface';
+import { IBookingData, PaymentDetails, PaymentResponse } from '../../models/bookingInterface';
 import { Router } from '@angular/router';
 import { environment } from '../../../../Environment/environment';
 declare var Razorpay: any;
+
 @Component({
   selector: 'app-checkout-page',
   standalone: true,
@@ -43,9 +43,10 @@ export class CheckoutPageComponent implements OnInit {
     email: '',
     role: '',
     status: '',
-    yearsOfExperience: '',
+    yearsOfExperience: 0 ,
     is_verified: false,
-    _id: ''
+    _id: '',
+    rating: 0
   };
   timeSlotDetails: ITimeslot = {
     employeeId: '',
@@ -72,6 +73,7 @@ export class CheckoutPageComponent implements OnInit {
     private categoryService: CategoryService,
     private userService: userService,
     private router: Router,
+    private ngZone: NgZone,
   ) { }
 
   ngOnInit(): void {
@@ -86,7 +88,7 @@ export class CheckoutPageComponent implements OnInit {
     this.store.select(selectServiceId).pipe(first()).subscribe(serviceId => {
       if (serviceId) {
         this.serviceId = serviceId;
-        localStorage.setItem('serviceId',this.serviceId);
+        localStorage.setItem('serviceId', this.serviceId);
         console.log('Loaded serviceId:', this.serviceId);
       } else {
         this.navigateToCategoryPage();
@@ -108,14 +110,14 @@ export class CheckoutPageComponent implements OnInit {
         console.log('Loaded employeeId:', this.employeeId);
       } else {
         this.navigateToCategoryPage();
-      }
+      } 
     });
   }
 
   private navigateToCategoryPage(): void {
     console.log('Data missing, navigating to selection page...');
     this.serviceId = localStorage.getItem('serviceId');
-    this.router.navigate(['/book/service-selection/',this.serviceId]);
+    this.router.navigate(['/book/service-selection/', this.serviceId]);
   }
 
   loadServiceDetails(): void {
@@ -261,16 +263,18 @@ export class CheckoutPageComponent implements OnInit {
       name: 'Service Booking',
       description: 'Payment for Service Booking',
       handler: (response: any) => {
-        const paymentResponse: PaymentResponse = {
-          razorpay_payment_id: response.razorpay_payment_id,
-          razorpay_order_id: response.razorpay_order_id,
-          razorpay_signature: response.razorpay_signature,
-          status: 'Success',
-          amount: this.totalAmount,
-          currency: 'INR',
-          timestamp: new Date()
-        };
-        this.finalizeBooking(bookingData, paymentResponse);
+        this.ngZone.run(() => {
+          const paymentResponse: PaymentResponse = {
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+            status: 'Success',
+            amount: this.totalAmount,
+            currency: 'INR',
+            timestamp: new Date()
+          };
+          this.finalizeBooking(bookingData, paymentResponse);
+        });
       },
       prefill: {
         email: localStorage.getItem('userEmail'),
@@ -280,29 +284,43 @@ export class CheckoutPageComponent implements OnInit {
         color: '#3399cc'
       }
     };
-
+  
     const rzp = new Razorpay(options);
-    rzp.open();
-  }
 
+    this.ngZone.runOutsideAngular(() => {
+      rzp.open();
+    });
+  }
+  
   finalizeBooking(bookingData: IBookingData, paymentResponse?: PaymentResponse) {
     this.userService.createBooking({
-        ...bookingData, paymentResponse: paymentResponse || {},
+      ...bookingData,
+      paymentResponse: paymentResponse || {},
     }).subscribe(
-        (response: any) => {
-            console.log('Booking successful:', response);
-            alert('Booking confirmed!');
-        },
-        (error) => {
-            console.error('Error completing booking:', error);
-            if (error.message.includes('Slot is already booked')) {
-                alert('Sorry, the selected timeslot is already booked. Please choose another one.');
-            } else {
-                alert('An error occurred while completing your booking. Please try again.');
-            }
-        }
+      (response: any) => {
+        this.ngZone.run(() => {
+          console.log('Booking successful:', response);
+          const paymentDetails: PaymentDetails = {
+            bookingStatus: 'Pending',
+            paymentMethod: bookingData.paymentMethod,
+            totalAmount: bookingData.totalAmount,
+            paymentDate: new Date(),
+            paymentResponse: paymentResponse || {}
+          };
+          this.router.navigate(['/book/payment-status'], { state: paymentDetails });
+          alert('Booking confirmed!');
+        });
+      },
+      (error) => {
+        this.ngZone.run(() => {
+          console.error('Error completing booking:', error);
+          if (error.message.includes('Slot is already booked')) {
+            alert('Sorry, the selected timeslot is already booked. Please choose another one.');
+          } else {
+            alert('An error occurred while completing your booking. Please try again.');
+          }
+        });
+      }
     );
-}
-
-
+  }
 }

@@ -1,0 +1,87 @@
+<div>
+  <div class="relative bg-cover bg-center h-96"
+    style="background-image: url('../../../../assets/background\ cover.jpg');">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <h1 class="text-white text-4xl font-bold">Bookings Details</h1>
+    </div>
+  </div>
+  <div class="max-w-2xl mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl font-bold">{{ booking.service }}</h2>
+      <p class="text-gray-600 text-lg">Reference Code: #{{ booking._id }}</p>
+    </div>
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-8">
+      <div>
+        <span class="text-base font-medium px-6 py-2 rounded-full" [ngClass]="{
+                'bg-yellow-300 text-yellow-900': booking.bookingStatus === 'Pending',
+                'bg-green-300 text-green-900': booking.bookingStatus === 'Confirmed',
+                'bg-red-300 text-red-900': booking.bookingStatus === 'Cancelled'
+              }">
+          {{ booking.bookingStatus }}
+        </span>
+      </div>
+      <div class="mt-6 sm:mt-0">
+        <p class="text-gray-800 text-lg font-semibold">{{ booking.date }}</p>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row justify-between mb-8 gap-8">
+      <div class="flex items-center gap-6">
+        <img [src]="booking.serviceImage" alt="Service Icon" class="w-20 h-20 rounded-full object-cover" />
+        <div>
+          <h3 class="font-semibold text-gray-900 text-xl">{{ booking.service }}</h3>
+          <p class="text-gray-600 text-md">{{ booking.category }}</p>
+        </div>
+      </div>
+      <div class="bg-gray-100 p-6 rounded-lg">
+        <h4 class="text-gray-800 text-lg font-medium">Home</h4>
+        <p class="text-gray-600 text-md">{{ booking.address.city }}</p>
+      </div>
+    </div>
+    <div class="text-center mb-8">
+      <h4 class="font-semibold text-gray-900 text-xl">{{ booking.employee }}</h4>
+      <span class="text-md text-gray-600">Service Provider</span>
+    </div>
+    <div class="bg-gray-50 p-8 rounded-lg mb-8">
+      <h3 class="text-xl font-semibold text-gray-900 mb-6">Billing Details</h3>
+      <div class="space-y-4">
+        <div class="flex justify-between text-lg">
+          <span>Item Total</span>
+          <span>₹{{ booking.totalAmount }}</span>
+        </div>
+        <div class="flex justify-between text-lg">
+          <span>Item Discount</span>
+          <span>- ₹50</span>
+        </div>
+        <div class="flex justify-between text-lg">
+          <span>Service Fee</span>
+          <span>₹50</span>
+        </div>
+        <div class="flex justify-between font-semibold border-t border-gray-300 pt-4 text-lg">
+          <span>Grand Total</span>
+          <span>₹{{ booking.totalAmount }}</span>
+        </div>
+        <div class="flex justify-between mt-6 text-lg">
+          <span>Payment Mode</span>
+          <span class="capitalize">{{ booking.paymentMethod }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="text-center flex justify-around">
+      <button *ngIf="!booking.completed && booking.bookingStatus !== 'Cancelled'"
+        class="px-8 py-3 bg-red-500 text-white text-base font-medium rounded-lg hover:bg-red-600"
+        (click)="onCancelBooking(booking._id)">
+        Cancel
+      </button>
+      <button [routerLink]="'/chat'" *ngIf="!booking.completed && booking.bookingStatus === 'Confirmed'"
+        class="px-8 py-3 bg-blue-200 text-blue-700 text-base font-medium rounded-lg hover:bg-blue-100">
+        Chat
+      </button>
+      <span *ngIf="booking.bookingStatus === 'Cancelled'" class="text-red-500 text-xl font-medium">
+        -- Cancelled --
+      </span>
+      <span *ngIf="booking.completed" class="text-green-500 text-xl font-medium">
+        -- Completed --
+      </span>
+    </div>
+  </div>
+</div>

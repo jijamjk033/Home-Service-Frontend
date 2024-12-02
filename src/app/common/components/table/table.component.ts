@@ -18,6 +18,7 @@ export class TableComponent {
   @Input() headerKeys: string[] = [];
   @Input() actions:boolean = false;
   @Output() employeeSelected = new EventEmitter<string>();
+  @Output() rowClicked = new EventEmitter<any>();
 
   currentPage: number = 1;
   rowsPerPage: number = 12;
@@ -33,6 +34,10 @@ export class TableComponent {
 
   ngOnInit(){
 
+  }
+
+  onRowClick(row: any) {
+    this.rowClicked.emit(row._id);
   }
 
   updateFilteredData(): void {
@@ -52,6 +57,7 @@ export class TableComponent {
     const startIndex = (this.currentPage - 1) * this.rowsPerPage;
     const endIndex = startIndex + this.rowsPerPage;
     this.paginatedData = this.filteredData.slice(startIndex, endIndex);
+    
   }
 
   onSearch(): void {

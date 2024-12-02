@@ -2,13 +2,13 @@
 
     <div class="container mx-auto flex justify-between items-center">
         <div class="flex items-center">
-            <img src="../../../../assets/Logo/myLogo.png" alt="HappyHomes" class="h-20">
+            <a [routerLink]="'/'"><img src="../../../../assets/Logo/myLogo.png" alt="HappyHomes" class="h-20"></a>
         </div>
         <nav class="hidden md:flex space-x-8">
             <a [routerLink]="'/book/categories'" class="text-white font-medium text-xl hover:text-blue-300">Services</a>
-            <a href="#bookings" class="text-white font-medium text-xl hover:text-blue-300">Bookings</a>
-            <a href="#history" class="text-white font-medium text-xl hover:text-blue-300">History</a>
-            <a href="#profile" class="text-white font-medium text-xl hover:text-blue-300">Profile</a>
+            <a [routerLink]="'/book/booking-list'" class="text-white font-medium text-xl hover:text-blue-300">Bookings</a>
+            <a [routerLink]="'/book/booking-history'" class="text-white font-medium text-xl hover:text-blue-300">History</a>
+            <a [routerLink]="'/userProfile'" class="text-white font-medium text-xl hover:text-blue-300">Profile</a>
         </nav>
 
         <div class="flex items-center space-x-4">

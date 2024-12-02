@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of paginatedData">
+    <tr *ngFor="let row of paginatedData" (click)="onRowClick(row)"  class="cursor-pointer hover:bg-gray-100">
       <td *ngFor="let key of headerKeys" class="border px-4 py-2">{{ row[key] }}</td>
     </tr>
   </tbody>

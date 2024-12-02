@@ -38,10 +38,12 @@ export const appConfig: ApplicationConfig = {
         progressBar: true,
         timeOut: 3000,
         progressAnimation: 'decreasing'
-    }), provideAnimationsAsync(),
+    }), 
+    provideAnimationsAsync(),
     provideHttpClient(withFetch()),
     provideClientHydration(),
-    provideHttpClient(withInterceptors([ErrorInterceptorFn])), provideAnimationsAsync(),
-    provideStore({ booking: bookingReducer })
+    provideHttpClient(withInterceptors([ErrorInterceptorFn])),
+    provideAnimationsAsync(),
+    provideStore({ booking: bookingReducer }),
 ]
 };

@@ -1,0 +1,7 @@
+<div>
+    <h1 class="text-gray-900 text-3xl font-semibold">Completed Tasks</h1>
+    <div class="mx-32 my-14">
+        <app-table [tableHeaders]="tableHeaders" [headerKeys]="headerKeys" [tableData]="displayedBookings"
+            (rowClicked)="onBookingClick($event)"></app-table>
+    </div>
+</div>

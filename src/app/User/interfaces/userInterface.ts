@@ -2,10 +2,10 @@ export interface UserData {
   name: string;
   email: string;
   password?: string;
-  phone : number;
+  phone: number;
   image: string;
-  status : boolean;
+  status: boolean;
   is_verified: boolean;
   isAdmin: boolean;
-  }
+}
 
