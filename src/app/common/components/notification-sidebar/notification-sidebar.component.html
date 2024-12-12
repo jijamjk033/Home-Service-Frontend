@@ -1,0 +1,17 @@
+<div class="fixed inset-y-0 right-0 bg-white text-gray-800 w-80 shadow-lg transform transition-transform duration-300"
+     [class.translate-x-full]="!isSidebarOpen"
+     [class.translate-x-0]="isSidebarOpen">
+    <div class="flex justify-between items-center px-5 pt-5 mb-8">
+        <h2 class="text-xl font-normal text-center justify-center">Notifications</h2>
+        <button (click)="closeSidebar()" class="text-gray-400 hover:text-gray-500">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="p-4">
+        <ul>
+            <li *ngFor="let notification of notifications" class="border shadow-xl mb-4 p-3">
+                {{ notification }}
+            </li>
+        </ul>
+    </div>
+</div>

@@ -3,6 +3,7 @@ import { BookingDetails } from '../../models/bookingInterface';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BookingService } from '../../services/booking.service';
 import { CommonModule, NgIf } from '@angular/common';
+import { ChatService } from '../../../common/services/chat.service';
 
 @Component({
   selector: 'app-booking-details',
@@ -12,9 +13,9 @@ import { CommonModule, NgIf } from '@angular/common';
   styleUrl: './booking-details.component.css'
 })
 export class BookingDetailsComponent implements OnInit {
-  booking!: BookingDetails;
+  booking: BookingDetails = {} as BookingDetails;
 
-  constructor(private route: ActivatedRoute, private router: Router,
+  constructor(private route: ActivatedRoute, private router: Router, private chatService: ChatService,
     private bookingService: BookingService) { }
 
   ngOnInit(): void {
@@ -37,9 +38,10 @@ export class BookingDetailsComponent implements OnInit {
     if (confirm('Are you sure you want to cancel this booking?')) {
       this.bookingService.cancelBooking(bookingId).subscribe({
         next: (response) => {
-          alert('Booking cancelled successfully.');
-          this.router.navigate(['/book/booking-list']);
-          console.log(response);
+          if(response){
+            alert('Booking cancelled successfully.');
+            this.router.navigate(['/book/booking-list']);
+          }
         },
         error: (err) => {
           console.error('Failed to cancel booking:', err);
@@ -47,5 +49,17 @@ export class BookingDetailsComponent implements OnInit {
         },
       });
     }
+  }
+
+  onChat(userId:string, employeeId:string){
+    this.chatService.initiateChat(userId, employeeId).subscribe(
+      (response) => {
+        const chatId = response.data.chatId;
+        this.router.navigate(['/chat', chatId]);
+      },
+      (error) => {
+        console.error('Failed to initiate chat:', error);
+      }
+    );
   }
 }

@@ -6,7 +6,7 @@ import { environment } from '../../../Environment/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LoginResponse, ResendOtpResponse, ResponseModel, SignupResponse, VerifyOtpResponse } from '../models/userResponseModel';
 import { isPlatformBrowser } from '@angular/common';
-import { addAddressResponse, Address, getAddressResponse } from '../models/address';
+import { addAddressResponse, getAddressResponse } from '../models/address';
 import { BookedTimeslot, BookingResponse, timeslotResponse } from '../../employee/interface/employeeInterface';
 import { UserData } from '../interfaces/userInterface';
 import { IWallet } from '../models/walletResponse';

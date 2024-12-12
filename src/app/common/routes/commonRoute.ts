@@ -31,7 +31,7 @@ export const commonRoutes: Routes = [
             ]
       },
       { path: 'table', component: TableComponent },
-      { path: 'chat', component:ChatComponent},
+      { path: 'chat/:id', component:ChatComponent},
 
 ];
 

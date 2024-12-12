@@ -18,7 +18,6 @@ import { IBookingData, PaymentDetails, PaymentResponse } from '../../models/book
 import { Router } from '@angular/router';
 import { environment } from '../../../../Environment/environment';
 declare var Razorpay: any;
-
 @Component({
   selector: 'app-checkout-page',
   standalone: true,
@@ -89,7 +88,6 @@ export class CheckoutPageComponent implements OnInit {
       if (serviceId) {
         this.serviceId = serviceId;
         localStorage.setItem('serviceId', this.serviceId);
-        console.log('Loaded serviceId:', this.serviceId);
       } else {
         this.navigateToCategoryPage();
       }
@@ -98,7 +96,6 @@ export class CheckoutPageComponent implements OnInit {
     this.store.select(selectTimeSlotId).pipe(first()).subscribe(timeslot => {
       if (timeslot) {
         this.timeslot = timeslot;
-        console.log('Loaded timeslot:', this.timeslot);
       } else {
         this.navigateToCategoryPage();
       }
@@ -107,7 +104,6 @@ export class CheckoutPageComponent implements OnInit {
     this.store.select(selectEmployeeId).pipe(first()).subscribe(employeeId => {
       if (employeeId) {
         this.employeeId = employeeId;
-        console.log('Loaded employeeId:', this.employeeId);
       } else {
         this.navigateToCategoryPage();
       } 

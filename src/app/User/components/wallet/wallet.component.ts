@@ -30,13 +30,10 @@ export class WalletComponent {
       this.userService.getTransactions(userId).subscribe({
         next: (response) => {
           if (response) {
-            console.log(response.data.transactions);
             this.transactions = response.data.transactions.map((transaction) => ({
               ...transaction,
               date: this.datePipe.transform(transaction.date, 'MMM dd, yyyy') || transaction.date,
-            }));
-            console.log(this.transactions);
-
+            })).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());;
             this.walletBalance = response.data.walletBalance;
           } else {
             console.error('No transactions found.');

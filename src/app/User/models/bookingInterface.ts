@@ -42,6 +42,7 @@ export interface BookingListData {
 
 export interface BookingDetails {
     _id: string;
+    userId:string;
     employee: string; 
     date: string;     
     category: string;

@@ -79,7 +79,7 @@
             (click)="completeBooking()">
             Completed
         </button>
-        <button [routerLink]="'/chat'" *ngIf="!booking.completed && booking.bookingStatus === 'Confirmed'"
+        <button (click)="onChat(booking.userId, booking.employee)" *ngIf="!booking.completed && booking.bookingStatus === 'Confirmed'"
             class="px-6 py-2 bg-blue-200 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-100">
             Chat
         </button>
