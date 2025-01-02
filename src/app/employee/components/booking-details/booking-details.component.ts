@@ -15,8 +15,10 @@ import { NotificationService } from '../../../common/services/notification.servi
 })
 export class BookingDetailsComponent {
   booking!: BookingDetails;
+  showCancelModal: boolean = false;
 
   constructor(private route: ActivatedRoute,private chatService: ChatService,
+    private notificationService: NotificationService,
     private bookingService: BookingService, private router: Router) { }
 
   ngOnInit(): void {
@@ -57,26 +59,35 @@ export class BookingDetailsComponent {
       }
     });
   }
-
   cancelBooking(): void {
-    this.bookingService.updateBookingStatus(this.booking._id, { bookingStatus: 'Cancelled' }).subscribe({
+    this.showCancelModal = true; 
+  }
+  closeCancelModal(): void {
+    this.showCancelModal = false;
+  }
+  confirmCancelBooking(): void {
+    this.showCancelModal = false;
+    this.bookingService.cancelBooking(this.booking._id, this.booking.userId, 'Employee').subscribe({
       next: (response) => {
         console.log('Booking cancelled:', response);
         const notificationData = {
           senderId: this.booking.employee,
           senderModel: 'Employee',
-          recipientId: this.booking.userId, 
+          recipientId: this.booking.userId,
           recipientModel: 'User',
           orderId: this.booking._id,
-        }; 
-        alert('Order has been cancelled and the user has been notified.');
+          type: 'cancellation',
+          message: 'Your booking has been canceled by the employee.',
+        };
+        this.notificationService.sendNotification('notification', notificationData); 
         this.router.navigate(['/employeeHome/bookingList']);
       },
       error: (err) => {
         console.error('Failed to cancel booking:', err);
-      }
+      },
     });
   }
+  
 
   onChat(userId:string, employeeId:string){
     this.chatService.initiateChat(userId, employeeId).subscribe(

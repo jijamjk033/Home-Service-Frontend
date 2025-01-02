@@ -6,7 +6,6 @@ import { ServiceBookingComponent } from '../components/service-booking/service-b
 import { ServiceSelectionComponent } from '../components/service-selection/service-selection.component';
 import { TimeslotSelectionComponent } from '../components/timeslot-selection/timeslot-selection.component';
 import { userAuthGuard } from '../guards/user-auth.guard';
-import { EmployeeSelectedComponent } from '../components/employee-selected/employee-selected.component';
 import { CheckoutPageComponent } from '../components/checkout-page/checkout-page.component';
 import { PaymentStatusComponent } from '../components/payment-status/payment-status.component';
 import { BookingsListComponent } from '../components/bookings-list/bookings-list.component';
@@ -34,6 +33,4 @@ export const userRoutes: Routes = [
             { path: 'booking-history', component: BookingHistoryComponent, canActivate: [userAuthGuard]},
         ]
     },
-
-
 ];

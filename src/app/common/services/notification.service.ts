@@ -1,17 +1,29 @@
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
-import { io, Socket  } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
+import { environment } from '../../../Environment/environment';
+import { HttpClient } from '@angular/common/http';
+import { ResponseModel } from '../../User/models/userResponseModel';
+import { NotificationResponse } from '../../User/models/notificationResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class NotificationService {
-  private notifications = new Subject<any>();
+  private notifications = new Subject<NotificationResponse>();
+  private apiKey = environment.notificationApiUrl;
+  private socket: Socket;
+  private port = environment.serverPort;
 
-  constructor(private socket: Socket, private toastr: ToastrService) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
+    this.socket = io(this.port);
     this.listenToNotifications();
+  }
+
+  fetchNotifications(id: string): Observable<ResponseModel<NotificationResponse[]>> {
+    return this.http.get<ResponseModel<NotificationResponse[]>>(`${this.apiKey}/${id}/notifications`);
   }
 
   sendNotification(event: string, data: any): void {
@@ -19,13 +31,21 @@ export class NotificationService {
   }
 
   private listenToNotifications(): void {
-    this.socket.on('notification', (notification: any) => {
+    this.socket.on('gotNotification', (notification: NotificationResponse) => {
       this.notifications.next(notification);
       this.showToast(notification.message);
     });
+
+    this.socket.on('connect_error', (err) => {
+      console.error('Socket connection error:', err);
+    });
+  }
+  
+  on(event: string, callback: (data: any) => void): void {
+    this.socket.on(event, callback);
   }
 
-  getNotifications(): Observable<any> {
+  getNotifications(): Observable<NotificationResponse> {
     return this.notifications.asObservable();
   }
 

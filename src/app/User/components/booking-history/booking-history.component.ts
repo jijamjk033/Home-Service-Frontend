@@ -21,7 +21,11 @@ export class BookingHistoryComponent implements OnInit {
   constructor(private bookingService: BookingService, private router: Router) { }
 
   ngOnInit(): void {
-    const userId = localStorage.getItem('user_id');
+    let userId: string | null = null;
+
+    if (typeof window !== 'undefined') {
+      userId = localStorage.getItem('user_id');
+    }
     if (userId) {
       this.bookingService.getUserBookings(userId).subscribe(
         (response) => {

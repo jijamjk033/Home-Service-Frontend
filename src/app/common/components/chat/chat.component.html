@@ -1,12 +1,12 @@
-<div *ngIf="isOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-400 bg-opacity-50">
-  <div class="bg-white w-full max-w-md rounded-lg shadow-lg">
-    <!-- Header -->
-    <div class="flex items-center justify-between p-4 border-b bg-gray-100">
-      <h2 class="text-lg font-semibold text-gray-800">Chat</h2>
-      <button class="text-gray-500 hover:text-red-500" (click)="closeChat()">✕</button>
+<div *ngIf="isOpen"
+  class="fixed inset-0 z-30 flex items-center justify-center bg-gray-800 bg-opacity-50 bg-repeat bg-cover"
+  style="background-image: url('../../../../assets/doodle-pattern-of-cleaning.jpg'); background-size: 1000px; background-position: center;">
+  <div class="absolute inset-0 bg-gray-900 bg-opacity-40 backdrop-blur-lg -z-10"></div>
+  <div class="bg-white w-full max-w-md rounded-lg z-10 relative">
+    <div class="flex items-center justify-between p-4 border-b" style="background-color: #666290;">
+      <h2 class="text-lg font-semibold text-white">Chat</h2>
+      <button class="text-white hover:text-red-500" (click)="closeChat()">✕</button>
     </div>
-
-    <!-- Messages Section -->
     <div class="p-4 h-96 overflow-y-auto bg-gray-50">
       <div *ngFor="let message of messages" class="mb-4"
         [ngClass]="{ 'text-right': message.isOutgoing, 'text-left': !message.isOutgoing }">
@@ -21,8 +21,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Input Section -->
     <div class="flex items-center gap-2 p-4 border-t bg-gray-100">
       <input type="text" [(ngModel)]="newMessage" placeholder="Type a message..."
         class="flex-grow px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"

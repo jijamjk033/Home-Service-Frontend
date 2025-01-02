@@ -27,7 +27,7 @@ export const appConfig: ApplicationConfig = {
       ToastrModule.forRoot({
         positionClass: 'toast-top-right', 
         preventDuplicates: true, 
-        timeOut: 4000, 
+        timeOut: 2000, 
         progressAnimation: 'decreasing', 
         toastClass: 'ngx-toastr custom-toaster', 
       }), 
@@ -40,7 +40,7 @@ export const appConfig: ApplicationConfig = {
       toastClass: 'ngx-toastr custom-toaster', 
       positionClass: 'toast-top-right', 
       preventDuplicates: true, 
-      timeOut: 4000, 
+      timeOut: 2000, 
       progressAnimation: 'decreasing',
     }), 
     provideAnimationsAsync(),

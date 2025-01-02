@@ -48,8 +48,12 @@ export class UserRegistrationComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
-    this.isRegisterLoading = true;  
-    this.userService.signup(this.userForm.value).subscribe({
+    this.isRegisterLoading = true;
+    const userData = {
+      ...this.userForm.value,
+      role: 'User'
+    };
+    this.userService.signup(userData).subscribe({
       next: (response) => {
         this.toastr.success('Registration successful', 'Success');
         this.router.navigate(['/form/user-otp']);

@@ -8,7 +8,7 @@ import { ChatService } from '../../../common/services/chat.service';
 @Component({
   selector: 'app-booking-details',
   standalone: true,
-  imports: [CommonModule, NgIf,RouterModule],
+  imports: [CommonModule, NgIf, RouterModule],
   templateUrl: './booking-details.component.html',
   styleUrl: './booking-details.component.css'
 })
@@ -25,7 +25,7 @@ export class BookingDetailsComponent implements OnInit {
         next: (response) => {
           this.booking = response.data;
           console.log(this.booking);
-          
+
         },
         error: (err) => {
           console.error('Failed to fetch booking details:', err);
@@ -34,24 +34,37 @@ export class BookingDetailsComponent implements OnInit {
     }
   }
 
+  showCancelModal: boolean = false;
+  bookingIdToCancel: string = '';
+
   onCancelBooking(bookingId: string): void {
-    if (confirm('Are you sure you want to cancel this booking?')) {
-      this.bookingService.cancelBooking(bookingId).subscribe({
-        next: (response) => {
-          if(response){
-            alert('Booking cancelled successfully.');
-            this.router.navigate(['/book/booking-list']);
-          }
-        },
-        error: (err) => {
-          console.error('Failed to cancel booking:', err);
-          alert('An error occurred while cancelling the booking.');
-        },
-      });
-    }
+    this.bookingIdToCancel = bookingId;
+    this.showCancelModal = true;
   }
 
-  onChat(userId:string, employeeId:string){
+  confirmCancelBooking(): void {
+    console.log(this.bookingIdToCancel);
+    this.bookingService.cancelBooking(this.bookingIdToCancel, this.booking.employee, 'User').subscribe({
+      next: (response) => {
+        if (response) {
+          this.showCancelModal = false;
+          alert('Booking cancelled successfully.');
+          this.router.navigate(['/book/booking-list']);
+        }
+      },
+      error: (err) => {
+        console.error('Failed to cancel booking:', err);
+        this.showCancelModal = false;
+        alert('An error occurred while cancelling the booking.');
+      },
+    });
+  }
+
+  closeCancelModal(): void {
+    this.showCancelModal = false;
+  }
+
+  onChat(userId: string, employeeId: string) {
     this.chatService.initiateChat(userId, employeeId).subscribe(
       (response) => {
         const chatId = response.data.chatId;

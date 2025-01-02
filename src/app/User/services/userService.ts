@@ -39,12 +39,12 @@ export class userService {
   }
 
   isLoggedIn(): boolean {
-    if (isPlatformBrowser(this.platformId)) {
-      const token = this.getToken();
-      const isTrue = token ? !this.jwtHelper.isTokenExpired(token) : false;
-      return isTrue;
+    const token = this.getToken();
+    if (token) {
+      return !this.jwtHelper.isTokenExpired(token);
+    } else {
+      return false;
     }
-    return false;
   }
 
   setRedirectUrl(url: string) {
@@ -82,8 +82,15 @@ export class userService {
   }
 
   login(data: object): Observable<ResponseModel<LoginResponse>> {
-    return this.http.post<ResponseModel<LoginResponse>>(`${this.apiKey}/login`, data);
-    
+    return this.http.post<ResponseModel<LoginResponse>>(`${this.apiKey}/login`, data).pipe(
+      tap((response) => {
+        const token = response.data?.token; 
+        if (token) {
+          this.loggedIn.next(true);
+        }
+      })
+    );
+
   }
 
   getUserDataByEmail(id: string): Observable<ResponseModel<UserData>> {

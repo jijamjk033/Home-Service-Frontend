@@ -27,7 +27,7 @@ export class HeaderComponent {
 
   toggleNotificationSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
-    if(this.isSidebarOpen == true){
+    if(this.isSidebarOpen){
       this.hasUnreadNotifications = false;
     }
   }

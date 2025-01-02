@@ -25,16 +25,6 @@ export class EmployeeService {
   private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
   isLoggedIn$ = this.loggedIn.asObservable();
 
-  isLoggedIn(): boolean {
-    if (isPlatformBrowser(this.platformId)) {
-      const token = this.getToken();
-      const isTrue = token ? !this.jwtHelper.isTokenExpired(token) : false;
-
-      return isTrue;
-    }
-    return false;
-  }
-
   getToken(): string | null {
     if (isPlatformBrowser(this.platformId)) {
       if (!this.token) {
@@ -43,6 +33,13 @@ export class EmployeeService {
     }
     return this.token;
   }
+
+  isLoggedIn(): boolean {
+    const token = this.getToken();
+    const isTrue = token ? !this.jwtHelper.isTokenExpired(token) : false;
+    return isTrue;
+  }
+
 
   login(data: object): Observable<ResponseModel<employeeLoginResponse>> {
     this.loggedIn.next(true);
