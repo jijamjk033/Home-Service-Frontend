@@ -34,8 +34,8 @@ export class BookingService {
     return this.http.put<ResponseModel<BookingResponse>>(`${this.employeeApiKey}/updateStatus/${id}`, booking);
   }
 
-  cancelBooking(bookingId: string, senderId:string, senderModel:string): Observable<ResponseModel<bookingCancelResponse>> {
-    const data = {senderId : senderId, senderModel: senderModel};
-    return this.http.post<ResponseModel<bookingCancelResponse>>(`${this.apiKey}/cancelBooking/${bookingId}`, data);
+  cancelBooking(id: string, recipientId:string, senderModel:string): Observable<ResponseModel<bookingCancelResponse>> {
+    const data = { recipientId, senderModel };
+    return this.http.post<ResponseModel<bookingCancelResponse>>(`${this.apiKey}/cancelBooking/${id}`, data);
   }
 }

@@ -11,3 +11,13 @@ export interface NotificationResponse {
     updatedAt: string;      
 }
   
+
+export interface NotificationData{              
+    senderId: string;           
+    senderModel: string;        
+    recipientId: string;        
+    recipientModel: string;     
+    message: string;           
+    type: string;              
+    orderId: string;           
+}

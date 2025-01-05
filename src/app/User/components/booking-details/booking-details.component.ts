@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BookingService } from '../../services/booking.service';
 import { CommonModule, NgIf } from '@angular/common';
 import { ChatService } from '../../../common/services/chat.service';
+import { NotificationService } from '../../../common/services/notification.service';
 
 @Component({
   selector: 'app-booking-details',
@@ -15,8 +16,13 @@ import { ChatService } from '../../../common/services/chat.service';
 export class BookingDetailsComponent implements OnInit {
   booking: BookingDetails = {} as BookingDetails;
 
-  constructor(private route: ActivatedRoute, private router: Router, private chatService: ChatService,
-    private bookingService: BookingService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private chatService: ChatService,
+    private bookingService: BookingService,
+    private notificationService: NotificationService,
+  ) { }
 
   ngOnInit(): void {
     const bookingId = this.route.snapshot.paramMap.get('id');
@@ -48,14 +54,22 @@ export class BookingDetailsComponent implements OnInit {
       next: (response) => {
         if (response) {
           this.showCancelModal = false;
-          alert('Booking cancelled successfully.');
+          const notificationData = {
+            senderId: this.booking.userId,
+            senderModel: 'User',
+            recipientId: this.booking.employee,
+            recipientModel: 'Employee',
+            orderId: this.booking._id,
+            type: 'cancellation',
+            message: 'Your booking has been canceled by the employee.',
+          };
+          this.notificationService.sendNotification('notification', notificationData);
           this.router.navigate(['/book/booking-list']);
         }
       },
       error: (err) => {
         console.error('Failed to cancel booking:', err);
         this.showCancelModal = false;
-        alert('An error occurred while cancelling the booking.');
       },
     });
   }

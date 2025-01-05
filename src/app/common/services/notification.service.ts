@@ -5,7 +5,7 @@ import { io, Socket } from 'socket.io-client';
 import { environment } from '../../../Environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { ResponseModel } from '../../User/models/userResponseModel';
-import { NotificationResponse } from '../../User/models/notificationResponse';
+import { NotificationData, NotificationResponse } from '../../User/models/notificationResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class NotificationService {
     return this.http.get<ResponseModel<NotificationResponse[]>>(`${this.apiKey}/${id}/notifications`);
   }
 
-  sendNotification(event: string, data: any): void {
+  sendNotification(event: string, data: NotificationData): void {
     this.socket.emit(event, data);
   }
 
