@@ -25,6 +25,13 @@ export class EmployeeService {
   private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
   isLoggedIn$ = this.loggedIn.asObservable();
 
+  getEmployeeId(): string | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem('employee_id');
+    }
+    return null;
+  }
+
   getToken(): string | null {
     if (isPlatformBrowser(this.platformId)) {
       if (!this.token) {
@@ -39,7 +46,6 @@ export class EmployeeService {
     const isTrue = token ? !this.jwtHelper.isTokenExpired(token) : false;
     return isTrue;
   }
-
 
   login(data: object): Observable<ResponseModel<employeeLoginResponse>> {
     this.loggedIn.next(true);

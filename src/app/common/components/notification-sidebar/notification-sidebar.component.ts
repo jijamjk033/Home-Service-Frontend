@@ -1,5 +1,5 @@
 import { DatePipe, NgFor } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 import { NotificationResponse } from '../../../User/models/notificationResponse';
 
@@ -20,63 +20,61 @@ export class NotificationSidebarComponent implements OnInit {
   constructor(private notificationService: NotificationService) { }
 
   ngOnInit(): void {
-    this.notificationService.on('gotNotification', (notification) => {
-      console.log('Notification received:', notification);
-      this.notifications.push(notification);
-      alert(notification.message);
-    });
+    if (this.isSidebarOpen && !this.isConnected) {
+      this.initializeNotifications();
+    }
   }
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes['isSidebarOpen'] && this.isSidebarOpen && !this.isConnected) {
-  //     this.initializeNotifications();
-  //   }
-  // }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isSidebarOpen'] && this.isSidebarOpen && !this.isConnected) {
+      this.initializeNotifications();
+    }
+  }
 
-  // private initializeNotifications() {
-  //   const recipientId = this.getRecipientId();
-  //   if (recipientId) {
-  //     this.fetchNotifications(recipientId);
-  //     this.subscribeToLiveNotifications();
-  //     this.isConnected = true;
-  //   } else {
-  //     console.error('Recipient ID is not available');
-  //   }
-  // }
+  private initializeNotifications(): void {
+    const recipientId = this.getRecipientId();
+    if (recipientId) {
+      this.fetchNotifications(recipientId);
+      this.subscribeToLiveNotifications();
+      this.isConnected = true;
+    } else {
+      console.error('Recipient ID is not available');
+    }
+  }
 
-  // private getRecipientId(): string | null {
-  //   if (typeof window !== 'undefined' && localStorage) {
-  //     const userId = localStorage.getItem('userId');
-  //     const employeeId = localStorage.getItem('employeeId');
-  //     return userId || employeeId || null;
-  //   }
-  //   console.error('localStorage is not available');
-  //   return null;
-  // }
+  private getRecipientId(): string | null {
+    if (typeof window !== 'undefined' && localStorage) {
+      const userId = localStorage.getItem('user_id');
+      const employeeId = localStorage.getItem('employee_id');
+      return userId || employeeId || null;
+    }
+    console.error('Recipient ID not found in localStorage');
+    return null;
+  }
 
-  // private fetchNotifications(recipientId: string): void {
-  //   this.notificationService.fetchNotifications(recipientId).subscribe(
-  //     (response) => {
-  //       this.notifications = response.data;
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching notifications:', error);
-  //     }
-  //   );
-  // }
+  private fetchNotifications(recipientId: string): void {
+    this.notificationService.fetchNotifications(recipientId).subscribe(
+      (response) => {
+        this.notifications = response.data || [];
+      },
+      (error) => {
+        console.error('Error fetching notifications:', error);
+      }
+    );
+  }
 
-  // private subscribeToLiveNotifications(): void {
-  //   this.notificationService.getNotifications().subscribe(
-  //     (notification) => {
-  //       this.notifications.unshift(notification);
-  //     },
-  //     (error) => {
-  //       console.error('Error receiving live notifications:', error);
-  //     }
-  //   );
-  // }
+  private subscribeToLiveNotifications(): void {
+    this.notificationService.getNotifications().subscribe(
+      (notification) => {
+        this.notifications.unshift(notification);
+      },
+      (error) => {
+        console.error('Error receiving live notifications:', error);
+      }
+    );
+  }
 
-  closeSidebar() {
+  closeSidebar(): void {
     this.isSidebarOpen = false;
   }
 }

@@ -20,6 +20,7 @@ export class HeaderComponent {
   constructor(private userService: userService) { }
 
   ngOnInit(): void {
+
     this.userService.isLoggedIn$.subscribe((status: boolean) => {
       this.isLoggedIn = status;
     });
@@ -27,7 +28,7 @@ export class HeaderComponent {
 
   toggleNotificationSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
-    if(this.isSidebarOpen){
+    if (this.isSidebarOpen) {
       this.hasUnreadNotifications = false;
     }
   }
@@ -35,5 +36,4 @@ export class HeaderComponent {
   logout() {
     this.userService.logout();
   }
-
 }

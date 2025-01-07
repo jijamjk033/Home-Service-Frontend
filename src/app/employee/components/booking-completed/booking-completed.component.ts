@@ -3,11 +3,12 @@ import { BookingListData } from '../../../User/models/bookingInterface';
 import { BookingService } from '../../../User/services/booking.service';
 import { Router } from '@angular/router';
 import { TableComponent } from '../../../common/components/table/table.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-booking-completed',
   standalone: true,
-  imports: [TableComponent],
+  imports: [TableComponent,NgIf],
   templateUrl: './booking-completed.component.html',
   styleUrl: './booking-completed.component.css'
 })

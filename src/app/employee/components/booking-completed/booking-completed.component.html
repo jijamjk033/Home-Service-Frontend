@@ -1,7 +1,12 @@
 <div>
     <h1 class="text-gray-900 text-3xl font-semibold">Completed Tasks</h1>
-    <div class="mx-32 my-14">
+    <div *ngIf="displayedBookings.length > 0; else noServiceHistory" class="mx-32 my-14">
         <app-table [tableHeaders]="tableHeaders" [headerKeys]="headerKeys" [tableData]="displayedBookings"
             (rowClicked)="onBookingClick($event)"></app-table>
     </div>
+    <ng-template #noServiceHistory>
+        <div class="text-center text-gray-500 mt-10 mb-28">
+            No service history available.
+        </div>
+    </ng-template>
 </div>
