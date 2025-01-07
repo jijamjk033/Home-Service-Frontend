@@ -71,13 +71,13 @@ export class BookingDetailsComponent {
       next: (response) => {
         console.log('Booking cancelled:', response);
         const notificationData = {
-          senderId: this.booking.employee,
+          senderId: this.booking.employeeId,
           senderModel: 'Employee',
           recipientId: this.booking.userId,
           recipientModel: 'User',
           orderId: this.booking._id,
           type: 'cancellation',
-          message: 'Your booking has been canceled by the employee.',
+          message: `Your booking has been canceled by Service Provider, ${this.booking.employee}.`,
         };
         this.notificationService.sendNotification('notification', notificationData); 
         this.router.navigate(['/employeeHome/bookingList']);

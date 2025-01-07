@@ -57,12 +57,14 @@ export class BookingDetailsComponent implements OnInit {
           const notificationData = {
             senderId: this.booking.userId,
             senderModel: 'User',
-            recipientId: this.booking.employee,
+            recipientId: this.booking.employeeId,
             recipientModel: 'Employee',
             orderId: this.booking._id,
             type: 'cancellation',
-            message: 'Your booking has been canceled by the employee.',
+            message: `A booking has been canceled by User ${this.booking.userName} .`,
           };
+          console.log(notificationData);
+          
           this.notificationService.sendNotification('notification', notificationData);
           this.router.navigate(['/book/booking-list']);
         }

@@ -31,6 +31,9 @@ export class NotificationService {
   }
 
   private listenToNotifications(): void {
+    this.socket.on('connect', () => {
+      console.log('Socket connected:', this.socket.id);
+    });
     this.socket.on('gotNotification', (notification: NotificationResponse) => {
       this.notifications.next(notification);
       this.showToast(notification.message);
@@ -39,10 +42,6 @@ export class NotificationService {
     this.socket.on('connect_error', (err) => {
       console.error('Socket connection error:', err);
     });
-  }
-  
-  on(event: string, callback: (data: any) => void): void {
-    this.socket.on(event, callback);
   }
 
   getNotifications(): Observable<NotificationResponse> {

@@ -23,7 +23,6 @@ export class userService {
   private redirectUrl: string = '/userHome';
   private employeeId = new BehaviorSubject<string | null>(null);
   private slotBooked = new BehaviorSubject<string | null>(null);
-
   private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
   isLoggedIn$ = this.loggedIn.asObservable();
 
@@ -36,6 +35,13 @@ export class userService {
       }
     }
     return this.token;
+  }
+
+  getUserId(): string | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem('user_id');
+    }
+    return null;
   }
 
   isLoggedIn(): boolean {
