@@ -12,6 +12,7 @@ import { NotificationSidebarComponent } from '../../../common/components/notific
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
+
 export class HeaderComponent {
   isLoggedIn = false;
   isSidebarOpen = false;
