@@ -9,7 +9,7 @@ export const employeeAuthGuard: CanActivateFn = (route, state) => {
   if (backendService.isLoggedIn()) {
     return true;
   } else {
-    router.navigate(['/form/employeeLogin']);
+    router.navigate(['/employeeLogin']);
     return false;
   }
 };

@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
-import { io, Socket } from 'socket.io-client';
 import { environment } from '../../../Environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { ResponseModel } from '../../User/models/userResponseModel';
 import { NotificationData, NotificationResponse } from '../../User/models/notificationResponse';
+import { SocketServiceService } from './socket-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,32 +14,28 @@ import { NotificationData, NotificationResponse } from '../../User/models/notifi
 export class NotificationService {
   private notifications = new Subject<NotificationResponse>();
   private apiKey = environment.notificationApiUrl;
-  private socket: Socket;
-  private port = environment.serverPort;
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
-    this.socket = io(this.port);
+  constructor(private http: HttpClient, private zone: NgZone, private toastr: ToastrService, private socketService: SocketServiceService) {
     this.listenToNotifications();
   }
+
 
   fetchNotifications(id: string): Observable<ResponseModel<NotificationResponse[]>> {
     return this.http.get<ResponseModel<NotificationResponse[]>>(`${this.apiKey}/${id}/notifications`);
   }
 
   sendNotification(event: string, data: NotificationData): void {
-    this.socket.emit(event, data);
+    this.socketService.socket?.emit(event, data);
   }
 
   private listenToNotifications(): void {
-    this.socket.on('connect', () => {
-      console.log('Socket connected:', this.socket.id);
+    this.socketService.socket?.on('gotNotification', (notification: NotificationResponse) => {
+      this.zone.run(() => {
+        this.notifications.next(notification);
+        this.showToast(notification.message);
+      });
     });
-    this.socket.on('gotNotification', (notification: NotificationResponse) => {
-      this.notifications.next(notification);
-      this.showToast(notification.message);
-    });
-
-    this.socket.on('connect_error', (err) => {
+    this.socketService.socket?.on('connect_error', (err) => {
       console.error('Socket connection error:', err);
     });
   }

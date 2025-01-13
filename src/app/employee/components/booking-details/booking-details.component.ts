@@ -5,11 +5,12 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BookingService } from '../../../User/services/booking.service';
 import { ChatService } from '../../../common/services/chat.service';
 import { NotificationService } from '../../../common/services/notification.service';
+import { ChatComponent } from '../../../common/components/chat/chat.component';
 
 @Component({
   selector: 'app-booking-details',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule,ChatComponent],
   templateUrl: './booking-details.component.html',
   styleUrl: './booking-details.component.css'
 })
@@ -88,17 +89,24 @@ export class BookingDetailsComponent {
     });
   }
   
+  chatVisible: boolean = false;
+  chatId: string = '';
 
   onChat(userId:string, employeeId:string){
     this.chatService.initiateChat(userId, employeeId).subscribe(
       (response) => {
-        const chatId = response.data.chatId;
-        this.router.navigate(['/chat', chatId]);
+        this.chatId = response.data.chatId;
+        this.chatVisible = true;
       },
       (error) => {
         console.error('Failed to initiate chat:', error);
       }
     );
+  }
+
+  closeChat(): void {
+    this.chatVisible = false;
+    this.chatId = '';
   }
 
 }

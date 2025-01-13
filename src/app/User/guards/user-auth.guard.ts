@@ -10,7 +10,7 @@ export const userAuthGuard: CanActivateFn = (route, state) => {
     return true;
   } else {
     backendService.setRedirectUrl(state.url);
-    router.navigate(['/form/userLogin']);
+    router.navigate(['/userLogin']);
     return false;
   }
 };  

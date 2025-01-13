@@ -12,7 +12,7 @@
                         class="absolute top-0 right-0 bg-red-600 rounded-full text-white text-xs px-1">!</span>
                 </button>
             </div>
-            <a *ngIf="!isLoggedIn" [routerLink]="['/form/employeeLogin']" class="text-white font-medium text-lg hover:text-blue-300">Signup/Login</a>
+            <a *ngIf="!isLoggedIn" [routerLink]="['/employeeLogin']" class="text-white font-medium text-lg hover:text-blue-300">Signup/Login</a>
             <a *ngIf="isLoggedIn" (click)="logout()" class="text-white font-medium text-lg hover:text-blue-300">Logout</a>
         </div>
     </div>

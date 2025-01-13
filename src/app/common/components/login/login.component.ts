@@ -34,9 +34,9 @@ export class LoginComponent {
 
   getRegistrationLink(): string[] {
     if (this.userType === 'user') {
-      return ['/form/signup'];
+      return ['/signup'];
     } else if (this.userType === 'employee') {
-      return ['/form/employee-registration'];
+      return ['/employee-registration'];
     } else {
       return [];
     }
