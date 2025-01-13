@@ -35,7 +35,7 @@ export class EmployeeOtpComponent implements OnInit {
     this.employeeService.verifyOtp(otp, this.otpToken).subscribe({
       next: (response) => {
         this.toastr.success('OTP verified successfully', 'Success');
-        this.router.navigate(['/form/employeeLogin']);
+        this.router.navigate(['/employeeLogin']);
       },
       error: (error) => {
         this.toastr.error('OTP verification failed', 'Error');

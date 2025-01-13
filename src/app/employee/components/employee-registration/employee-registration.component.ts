@@ -51,7 +51,7 @@ export class EmployeeRegistrationComponent implements OnInit {
     this.employeeService.signup(this.employeeForm.value).subscribe({
       next: (response) => {
         this.toastr.success('Registration successful', 'Success');
-        this.router.navigate(['/form/employee-otp']);
+        this.router.navigate(['/employee-otp']);
         localStorage.setItem('otpToken', response.data.otpToken);
         localStorage.setItem('employeeEmail', this.employeeForm.value.email);
         this.isRegisterLoading = false;

@@ -8,7 +8,7 @@ export const adminAuthGuard: CanActivateFn = (route, state) => {
   if (backendService.isLoggedIn()) {
     return true; 
   } else {    
-    router.navigate(['/form/adminLogin']);
+    router.navigate(['/adminLogin']);
     return false;
   }
 };

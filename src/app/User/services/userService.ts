@@ -99,7 +99,7 @@ export class userService {
 
   }
 
-  getUserDataByEmail(id: string): Observable<ResponseModel<UserData>> {
+  getUserDataById(id: string): Observable<ResponseModel<UserData>> {
     return this.http.get<ResponseModel<UserData>>(`${this.apiKey}/get-user/${id}`);
   }
 

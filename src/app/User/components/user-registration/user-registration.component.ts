@@ -56,7 +56,7 @@ export class UserRegistrationComponent implements OnInit {
     this.userService.signup(userData).subscribe({
       next: (response) => {
         this.toastr.success('Registration successful', 'Success');
-        this.router.navigate(['/form/user-otp']);
+        this.router.navigate(['/user-otp']);
         localStorage.setItem('otpToken', response.data.otpToken);
         localStorage.setItem('userEmail', this.userForm.value.email);
         this.isRegisterLoading = false;

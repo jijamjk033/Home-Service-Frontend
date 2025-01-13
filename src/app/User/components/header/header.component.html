@@ -14,17 +14,20 @@
             <a [routerLink]="'/userProfile'" class="text-white font-medium text-xl hover:text-blue-300">Profile</a>
         </nav>
         <div class="flex items-center space-x-4">
-            <div *ngIf="isLoggedIn" class="relative">
-                <button (click)="toggleNotificationSidebar()" class="text-white text-xl mr-3 relative">
-                    <i class="fas fa-bell"></i>
-                    <span *ngIf="hasUnreadNotifications"
-                        class="absolute top-0 right-0 bg-red-600 rounded-full text-white text-xs px-1">!</span>
-                </button>
-            </div>
-            <a *ngIf="!isLoggedIn" [routerLink]="['/form/userLogin']"
-                class="text-white font-medium text-lg hover:text-blue-300">Signup/Login</a>
-            <a *ngIf="isLoggedIn" (click)="logout()"
-                class="text-white font-medium text-lg hover:text-blue-300">Logout</a>
+            <ng-container *ngIf="!isLoggedIn; else loggedIn">
+                <a [routerLink]="['/userLogin']"
+                    class="text-white font-medium text-lg hover:text-blue-300">Signup/Login</a>
+            </ng-container>
+            <ng-template #loggedIn>
+                <div class="relative">
+                    <button (click)="toggleNotificationSidebar()" class="text-white text-xl mr-3 relative">
+                        <i class="fas fa-bell"></i>
+                        <span *ngIf="hasUnreadNotifications"
+                            class="absolute top-0 right-0 bg-red-600 rounded-full text-white text-xs px-1">!</span>
+                    </button>
+                </div>
+                <a (click)="logout()" class="text-white font-medium text-lg hover:text-blue-300">Logout</a>
+            </ng-template>
         </div>
     </div>
 </header>

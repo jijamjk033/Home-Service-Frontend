@@ -33,7 +33,7 @@ export class AdminServices {
 
   logout():void{
     localStorage.removeItem('adminToken');
-    this.router.navigate(['/form/adminLogin']);
+    this.router.navigate(['/adminLogin']);
   }
 
   getUsersList():Observable<ResponseModel<UserModel[]>>{

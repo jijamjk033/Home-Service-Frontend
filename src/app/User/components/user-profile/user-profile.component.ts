@@ -6,28 +6,35 @@ import { userService } from '../../services/userService';
 import { FormsModule } from '@angular/forms';
 import { AddressManagementComponent } from '../address-management/address-management.component';
 import { RouterModule } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent,FormsModule, AddressManagementComponent,RouterModule],
+  imports: [NgIf, HeaderComponent, FooterComponent,FormsModule, AddressManagementComponent,RouterModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent implements OnInit {
-  userData!: UserData;
+  userData: UserData= {
+    name: '',
+    email: '',
+    status: false,
+    is_verified: false,
+    isAdmin: false,
+    phone: 0,
+  };
 
   constructor(private userService: userService) { }
 
   ngOnInit(): void {
     const userId = localStorage.getItem('user_id');
     if (userId) {
-      this.userService.getUserDataByEmail(userId).subscribe(
+      this.userService.getUserDataById(userId).subscribe(
         {
           next: (response) => {
             if (response) {
               this.userData = response.data;
-              
             }
           },
           error: (error) => {

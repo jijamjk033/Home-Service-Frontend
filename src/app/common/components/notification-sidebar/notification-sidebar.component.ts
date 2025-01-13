@@ -46,6 +46,7 @@ export class NotificationSidebarComponent implements OnInit {
     if (typeof window !== 'undefined' && localStorage) {
       const userId = localStorage.getItem('user_id');
       const employeeId = localStorage.getItem('employee_id');
+      console.log('userId, employeeId', userId, employeeId);
       return userId || employeeId || null;
     }
     console.error('Recipient ID not found in localStorage');

@@ -34,7 +34,7 @@ export class UserOtpComponent implements OnInit {
     this.userService.verifyOtp(otp, this.otpToken).subscribe({
       next: (response) => {
         this.toastr.success('OTP verified successfully', 'Success');
-        this.router.navigate(['/form/userLogin']);
+        this.router.navigate(['/userLogin']);
       },
       error: (error) => {
         this.toastr.error('OTP verification failed', 'Error');
