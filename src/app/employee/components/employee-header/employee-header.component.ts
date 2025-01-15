@@ -23,6 +23,7 @@ export class EmployeeHeaderComponent implements OnInit, OnDestroy{
   constructor(private employeeService: EmployeeService, private notificationService: NotificationService, private socketService: SocketServiceService) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = this.employeeService.isLoggedIn();
     this.loginStatusSubscription = this.employeeService.isLoggedIn$.subscribe((status: boolean) => {
       this.isLoggedIn = status;
       if (this.isLoggedIn) {

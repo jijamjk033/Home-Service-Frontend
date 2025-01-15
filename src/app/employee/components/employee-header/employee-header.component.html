@@ -2,18 +2,23 @@
     <app-notification-sidebar [isSidebarOpen]="isSidebarOpen"></app-notification-sidebar>
     <div class="container mx-auto flex justify-between items-center">
         <div class="flex items-center">
-            <img src="../../../../assets/Logo/myLogo.png" alt="HappyHomes" class="h-20">
-        </div>
+            <a [routerLink]="'/employeeHome'"><img src="../../../../assets/Logo/myLogo.png" alt="HappyHomes" class="h-20"></a>
+        </div> 
         <div class="flex items-center space-x-4">
-             <div *ngIf="isLoggedIn" class="relative">
-                <button (click)="toggleNotificationSidebar()" class="text-white text-xl mr-3 relative">
-                    <i class="fas fa-bell"></i>
-                    <span *ngIf="hasUnreadNotifications"
-                        class="absolute top-0 right-0 bg-red-600 rounded-full text-white text-xs px-1">!</span>
-                </button>
-            </div>
-            <a *ngIf="!isLoggedIn" [routerLink]="['/employeeLogin']" class="text-white font-medium text-lg hover:text-blue-300">Signup/Login</a>
-            <a *ngIf="isLoggedIn" (click)="logout()" class="text-white font-medium text-lg hover:text-blue-300">Logout</a>
+            <ng-container *ngIf="!isLoggedIn; else loggedIn">
+                <a [routerLink]="['/employeeLogin']"
+                    class="text-white font-medium text-lg hover:text-blue-300">Signup/Login</a>
+            </ng-container>
+            <ng-template #loggedIn>
+                <div class="relative">
+                    <button (click)="toggleNotificationSidebar()" class="text-white text-xl mr-3 relative">
+                        <i class="fas fa-bell"></i>
+                        <span *ngIf="hasUnreadNotifications"
+                            class="absolute top-0 right-0 bg-red-600 rounded-full text-white text-xs px-1">!</span>
+                    </button>
+                </div>
+                <a (click)="logout()" class="text-white font-medium text-lg hover:text-blue-300">Logout</a>
+            </ng-template>
         </div>
     </div>
 </header>

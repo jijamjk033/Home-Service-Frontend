@@ -9,7 +9,8 @@ import { NgIf } from '@angular/common';
   selector: 'app-user-registration',
   standalone: true,
   imports: [FormsModule, RouterModule, ReactiveFormsModule, NgIf],
-  templateUrl: './user-registration.component.html'
+  templateUrl: './user-registration.component.html',
+  styleUrl: './user-registration.component.css'
 })
 
 export class UserRegistrationComponent implements OnInit {

@@ -12,8 +12,8 @@ import { adminRoutes } from './Admin/routes/adminRoute';
 import { employeeRoutes } from './employee/routes/employeeRoutes';
 import { ErrorInterceptorFn} from './interceptor/error-interceptor.service';
 import { provideStore } from '@ngrx/store';
-import { StoreModule } from '@ngrx/store';
 import { bookingReducer } from './state/booking/booking.reducer';
+import { authInterceptor } from './interceptor/auth-interceptor.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -47,6 +47,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideClientHydration(),
     provideHttpClient(withInterceptors([ErrorInterceptorFn])),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
     provideStore({ booking: bookingReducer }),
 ]

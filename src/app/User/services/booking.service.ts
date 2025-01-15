@@ -16,10 +16,7 @@ export class BookingService {
   constructor(private http: HttpClient) { }
 
   getUserBookings(id: string): Observable<ResponseModel<BookingListData[]>> {
-    return this.http.get<ResponseModel<BookingListData[]>>(`${this.apiKey}/getBookingList/${id}`).pipe(tap((response)=>{
-      console.log('response fromn tap',response);
-      
-    }));
+    return this.http.get<ResponseModel<BookingListData[]>>(`${this.apiKey}/getBookingList/${id}`);
   }
 
   getEmployeeBookings(id: string): Observable<ResponseModel<BookingListData[]>>{
