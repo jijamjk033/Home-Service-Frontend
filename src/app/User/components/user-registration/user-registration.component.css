@@ -1,44 +1,65 @@
-/* Placeholder floating label style */
-.form label span {
-    transition: 0.3s ease;
+.page-container {
+  background-color: #e3bb99;
+  background-image: radial-gradient(
+      circle at bottom left,
+      #8b90a8 0%,
+      transparent 25%
+    ),
+    radial-gradient(circle at top right, #8b90a8 0%, transparent 25%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  overflow: hidden;
 }
 
-.input:focus + span,
-.input:not(:placeholder-shown) + span {
-    top: -0.75rem;
-    font-size: 0.75em;
-    color: #3B82F6;
+.header-container {
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  z-index: 50;
+  padding: 10px; 
 }
 
-.input:valid + span {
-    color: green;
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: 300px;
+  height: auto;
 }
-/* Loader Overlay */
+
 .loader-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  /* Spinner */
-  .spinner {
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #3498db;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
+  100% {
+    transform: rotate(360deg);
   }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
+}

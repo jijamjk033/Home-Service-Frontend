@@ -57,8 +57,7 @@
         <div class="bg-white rounded-lg mt-6 p-4">
             <h2 class="text-xl font-medium mb-4 text-gray-700">Payment Options</h2>
             <label class="flex items-center mb-3 text-gray-600">
-                <input type="radio" name="payment" value="online" class="mr-2"
-                    (change)="onPaymentModeChange('online')">
+                <input type="radio" name="payment" value="online" class="mr-2" (change)="onPaymentModeChange('online')">
                 <span>Online Payment</span>
             </label>
             <label class="flex items-center mb-3 text-gray-600">
@@ -70,8 +69,8 @@
                 <span>Wallet</span>
             </label>
         </div>
-        <button class="ml-4 px-4 py-2 bg-blue-500 text-white font-medium rounded-md disabled:opacity-50 cursor-pointer" [class.bg-blue-500]="selectedPaymentMode && address"
-        [class.bg-gray-300]="!selectedPaymentMode || !address"
+        <button class="ml-4 px-4 py-2 bg-blue-500 text-white font-medium rounded-md disabled:opacity-50 cursor-pointer"
+            [class.bg-blue-500]="selectedPaymentMode && address" [class.bg-gray-300]="!selectedPaymentMode || !address"
             [disabled]="!selectedPaymentMode || !address" (click)="proceedToPayment()">
             Proceed to Payment
         </button>

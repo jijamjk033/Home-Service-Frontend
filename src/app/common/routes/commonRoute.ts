@@ -25,6 +25,5 @@ export const commonRoutes: Routes = [
       { path: 'employeeLogin', component: EmployeeLoginComponent },
       { path: 'table', component: TableComponent },
       { path: 'chat/:id', component: ChatComponent },
-
 ];
 

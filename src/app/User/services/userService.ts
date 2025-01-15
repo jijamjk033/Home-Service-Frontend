@@ -96,7 +96,6 @@ export class userService {
         }
       })
     );
-
   }
 
   getUserDataById(id: string): Observable<ResponseModel<UserData>> {

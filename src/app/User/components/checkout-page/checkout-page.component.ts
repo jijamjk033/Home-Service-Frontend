@@ -287,7 +287,7 @@ export class CheckoutPageComponent implements OnInit {
       rzp.open();
     });
   }
-  
+
   finalizeBooking(bookingData: IBookingData, paymentResponse?: PaymentResponse) {
     this.userService.createBooking({
       ...bookingData,
@@ -304,7 +304,6 @@ export class CheckoutPageComponent implements OnInit {
             paymentResponse: paymentResponse || {}
           };
           this.router.navigate(['/book/payment-status'], { state: paymentDetails });
-          alert('Booking confirmed!');
         });
       },
       (error) => {

@@ -22,6 +22,19 @@ export class SocketServiceService {
     if (this.socket) {
       this.socket.on('connect', () => {
         console.log('Socket connected:', this.socket?.id);
+        if (typeof window !== 'undefined' && window.localStorage) {
+          const userId = localStorage.getItem('user_id');
+          const employeeId = localStorage.getItem('employee_id');
+          const idToRegister = userId || employeeId;
+          if (idToRegister) {
+            this.socket?.emit('register', idToRegister);
+            console.log(`Registered with ID: ${idToRegister}`);
+          } else {
+            console.warn('User ID not found in local storage.');
+          }
+        } else {
+          console.error('Window or localStorage is not available.');
+        }
       });
 
       this.socket.on('disconnect', () => {

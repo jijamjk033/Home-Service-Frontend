@@ -64,8 +64,6 @@ export class BookingDetailsComponent implements OnInit {
             type: 'cancellation',
             message: `A booking has been canceled by User ${this.booking.userName} .`,
           };
-          console.log(notificationData);
-          
           this.notificationService.sendNotification('notification', notificationData);
           this.router.navigate(['/book/booking-list']);
         }

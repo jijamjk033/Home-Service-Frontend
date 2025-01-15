@@ -16,7 +16,10 @@ export class NotificationService {
   private apiKey = environment.notificationApiUrl;
 
   constructor(private http: HttpClient, private zone: NgZone, private toastr: ToastrService, private socketService: SocketServiceService) {
-    this.listenToNotifications();
+    this.socketService.socket?.on('connect', () => {
+      console.log('Socket connected:', this.socketService.socket?.id);
+      this.listenToNotifications();
+    });
   }
 
 
@@ -31,6 +34,7 @@ export class NotificationService {
   private listenToNotifications(): void {
     this.socketService.socket?.on('gotNotification', (notification: NotificationResponse) => {
       this.zone.run(() => {
+        console.log('Notification recieved in the recipient side', notification);
         this.notifications.next(notification);
         this.showToast(notification.message);
       });

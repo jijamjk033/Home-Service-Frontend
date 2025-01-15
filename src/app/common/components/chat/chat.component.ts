@@ -105,9 +105,6 @@ export class ChatComponent implements OnInit {
         isOutgoing: message.sender === userId || message.sender === employeeId,
         timestamp: new Date(message.timestamp).toLocaleTimeString(),
       });
-      this.toastr.info('You have a new message', message.text, {
-        toastClass: 'ngx-toastr custom-toaster',
-      });
       this.scrollToBottom();
     });
   }

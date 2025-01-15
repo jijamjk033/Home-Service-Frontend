@@ -10,12 +10,31 @@ import { ChatComponent } from '../../../common/components/chat/chat.component';
 @Component({
   selector: 'app-booking-details',
   standalone: true,
-  imports: [CommonModule, RouterModule,ChatComponent],
+  imports: [CommonModule, RouterModule, ChatComponent],
   templateUrl: './booking-details.component.html',
   styleUrl: './booking-details.component.css'
 })
 export class BookingDetailsComponent {
-  booking!: BookingDetails;
+  
+  defaultBooking: BookingDetails = {
+    _id: '',
+    userId: '',
+    userName: '', 
+    employee: '',
+    employeeId: '',
+    date: '',  
+    category: '',
+    service: '',
+    serviceImage: '',
+    totalAmount: 0,
+    paymentMethod: '',
+    paymentStatus: '',
+    bookingStatus: '',
+    completed: false,
+    address: { city: '' },
+  };
+  
+  booking: BookingDetails = { ...this.defaultBooking };
   showCancelModal: boolean = false;
 
   constructor(private route: ActivatedRoute,private chatService: ChatService,
