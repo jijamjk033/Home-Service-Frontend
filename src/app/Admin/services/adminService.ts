@@ -1,8 +1,7 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { environment } from '../../../Environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ResponseModel } from '../../User/models/userResponseModel';
 import { AdminLoginResponse } from '../../User/models/adminResponseModel';
 import { UserModel } from '../../User/models/userModel';
@@ -13,8 +12,7 @@ import { EmployeeModel } from '../../User/models/employeeModel';
 })
 export class AdminServices {
 
-  private apiKey = environment.adminApiUrl;
-
+  private apiKey = import.meta.env.NG_APP_ADMIN_API_URL;
   isLoggedIn(): boolean {
     if (typeof window !== 'undefined' && localStorage) {
       const token = localStorage.getItem('adminToken');
@@ -23,8 +21,9 @@ export class AdminServices {
     return false;
   }
   
-
-  constructor(private http:HttpClient,private router:Router,@Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(private http:HttpClient,private router:Router,@Inject(PLATFORM_ID) private platformId: Object) { 
+    
+  }
 
 
   login(data:object):Observable<ResponseModel<AdminLoginResponse>>{

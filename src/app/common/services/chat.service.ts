@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../Environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResponseModel } from '../../User/models/userResponseModel';
@@ -11,7 +10,7 @@ import { SocketServiceService } from './socket-service.service';
 })
 export class ChatService {
 
-  private apiKey = environment.chatApiUrl;
+  private apiKey = import.meta.env.NG_APP_CHAT_API_URL;
   constructor(private http: HttpClient, private socketService: SocketServiceService) {}
 
   initiateChat(userId: string, employeeId: string): Observable<ResponseModel<chatResponse>> {

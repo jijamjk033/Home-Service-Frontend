@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../Environment/environment';
 import { Observable, tap } from 'rxjs';
 import { ResponseModel } from '../models/userResponseModel';
 import { BookingDetails, BookingListData } from '../models/bookingInterface';
@@ -10,8 +9,8 @@ import { bookingCancelResponse, BookingResponse } from '../../employee/interface
   providedIn: 'root'
 })
 export class BookingService {
-  private apiKey = environment.userApiUrl;
-  private employeeApiKey = environment.employeeApiUrl
+  private apiKey = import.meta.env.NG_APP_USER_API_URL;
+  private employeeApiKey = import.meta.env.NG_APP_EMPLOYEE_API_URL;
 
   constructor(private http: HttpClient) { }
 

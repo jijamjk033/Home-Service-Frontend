@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { environment } from '../../../Environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketServiceService {
   socket: Socket | null = null;
-  private port = environment.serverPort;
+  private port = import.meta.env.NG_APP_SERVER_PORT;
 
   constructor() { }
 

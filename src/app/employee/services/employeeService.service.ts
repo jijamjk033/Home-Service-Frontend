@@ -1,5 +1,4 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { environment } from '../../../Environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -15,7 +14,7 @@ import { EmployeeModel } from '../../User/models/employeeModel';
 })
 export class EmployeeService {
 
-  private apiKey = environment.employeeApiUrl;
+  private apiKey = import.meta.env.NG_APP_EMPLOYEE_API_URL;
   private token: string | null = null;
   private jwtHelper = new JwtHelperService();
 

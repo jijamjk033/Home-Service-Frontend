@@ -1,7 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
-import { environment } from '../../../Environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { ResponseModel } from '../../User/models/userResponseModel';
 import { NotificationData, NotificationResponse } from '../../User/models/notificationResponse';
@@ -13,7 +12,7 @@ import { SocketServiceService } from './socket-service.service';
 
 export class NotificationService {
   private notifications = new Subject<NotificationResponse>();
-  private apiKey = environment.notificationApiUrl;
+  private apiKey = import.meta.env.NG_APP_NOTIFICATION_API_URL;
 
   constructor(private http: HttpClient, private zone: NgZone, private toastr: ToastrService, private socketService: SocketServiceService) {
     this.socketService.socket?.on('connect', () => {

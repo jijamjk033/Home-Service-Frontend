@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { environment } from '../../../Environment/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LoginResponse, ResendOtpResponse, ResponseModel, SignupResponse, VerifyOtpResponse } from '../models/userResponseModel';
 import { isPlatformBrowser } from '@angular/common';
@@ -19,7 +18,7 @@ export class userService {
 
   private token: string | null = null;
   private jwtHelper = new JwtHelperService();
-  private apiKey = environment.userApiUrl;
+  private apiKey = import.meta.env.NG_APP_USER_API_URL;
   private redirectUrl: string = '/userHome';
   private employeeId = new BehaviorSubject<string | null>(null);
   private slotBooked = new BehaviorSubject<string | null>(null);

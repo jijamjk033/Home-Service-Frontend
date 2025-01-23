@@ -2,7 +2,6 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ResponseModel } from '../../User/models/userResponseModel';
 import { ServiceModel } from '../Models/categoryModel';
-import { environment } from '../../../Environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ServiceResponse } from '../Models/categoryResponse';
@@ -12,7 +11,7 @@ import { ServiceResponse } from '../Models/categoryResponse';
 })
 export class ServicesService {
 
-  private apiKey = environment.adminApiUrl;
+  private apiKey = import.meta.env.NG_APP_ADMIN_API_URL;
 
   constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) { }
 

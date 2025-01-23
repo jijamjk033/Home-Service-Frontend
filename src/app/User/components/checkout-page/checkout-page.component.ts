@@ -16,7 +16,6 @@ import { Address } from '../../models/address';
 import { DatePipe, NgIf } from '@angular/common';
 import { IBookingData, PaymentDetails, PaymentResponse } from '../../models/bookingInterface';
 import { Router } from '@angular/router';
-import { environment } from '../../../../Environment/environment';
 declare var Razorpay: any;
 @Component({
   selector: 'app-checkout-page',
@@ -253,7 +252,7 @@ export class CheckoutPageComponent implements OnInit {
 
   initializeRazorpay(bookingData: IBookingData) {
     const options = {
-      key: environment.key_id,
+      key: import.meta.env.NG_APP_KEY_ID,
       amount: this.totalAmount * 100,
       currency: 'INR',
       name: 'Service Booking',

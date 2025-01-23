@@ -4,7 +4,6 @@ import { ResponseModel } from '../../User/models/userResponseModel';
 import { CategoryModel } from '../Models/categoryModel';
 import { CategoryResponse } from '../Models/categoryResponse';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../Environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,7 @@ import { environment } from '../../../Environment/environment';
 
 export class CategoryService {
   
-  private apiKey = environment.adminApiUrl;
+  private apiKey = import.meta.env.NG_APP_ADMIN_API_URL;
 
   constructor(private http:HttpClient) { }
 
