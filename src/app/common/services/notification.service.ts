@@ -22,7 +22,6 @@ export class NotificationService {
     });
   }
 
-
   fetchNotifications(id: string): Observable<ResponseModel<NotificationResponse[]>> {
     return this.http.get<ResponseModel<NotificationResponse[]>>(`${this.apiKey}/${id}/notifications`);
   }
