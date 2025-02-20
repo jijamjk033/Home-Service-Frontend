@@ -71,8 +71,9 @@
         </div>
         <button class="ml-4 px-4 py-2 bg-blue-500 text-white font-medium rounded-md disabled:opacity-50 cursor-pointer"
             [class.bg-blue-500]="selectedPaymentMode && address" [class.bg-gray-300]="!selectedPaymentMode || !address"
-            [disabled]="!selectedPaymentMode || !address" (click)="proceedToPayment()">
+            [disabled]="!selectedPaymentMode || !address" (click)="proceedToPayment()" (mousedown)="showErrorMessageIfDisabled($event)">
             Proceed to Payment
         </button>
+        <p *ngIf="errorMessage" class="text-red-500 mt-2">{{ errorMessage }}</p>
     </div>
 </div>

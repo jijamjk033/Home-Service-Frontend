@@ -56,12 +56,15 @@ export class UserRegistrationComponent implements OnInit {
     };
     this.userService.signup(userData).subscribe({
       next: (response) => {
-        this.toastr.success('Registration successful', 'Success');
-        this.router.navigate(['/user-otp']);
-        localStorage.setItem('otpToken', response.data.otpToken);
-        localStorage.setItem('userEmail', this.userForm.value.email);
-        this.isRegisterLoading = false;
-
+        if (response && response.message === 'Otp sent to your email' && response.data.otpToken) {
+          this.toastr.success('Registration successful', 'Success');
+          this.router.navigate(['/user-otp']);
+          localStorage.setItem('otpToken', response.data.otpToken);
+          localStorage.setItem('userEmail', this.userForm.value.email);
+        } else {
+          this.toastr.error(response?.message || 'Registration failed. Please try again.', 'Error');
+          this.router.navigate(['/signup']);
+        }
       },
       error: (error) => {
         this.isRegisterLoading = false;

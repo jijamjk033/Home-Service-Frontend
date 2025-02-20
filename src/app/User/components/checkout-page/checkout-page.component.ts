@@ -63,6 +63,7 @@ export class CheckoutPageComponent implements OnInit {
   };
   bookingFee = 50;
   totalAmount = 0;
+  errorMessage: string | null = null;
 
   constructor(
     private store: Store<BookingState>,
@@ -242,6 +243,16 @@ export class CheckoutPageComponent implements OnInit {
       this.handleCashOnDelivery(bookingData);
     } else {
       console.error('Invalid payment mode selected');
+    }
+  }
+
+  showErrorMessageIfDisabled(event: MouseEvent) {
+    if (!this.selectedPaymentMode || !this.address) {
+      event.preventDefault(); 
+      this.errorMessage = 'Select address and payment option';
+      setTimeout(() => {
+        this.errorMessage = null;
+      }, 3000);
     }
   }
 
