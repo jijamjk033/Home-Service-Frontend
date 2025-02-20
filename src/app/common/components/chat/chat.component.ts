@@ -50,7 +50,6 @@ export class ChatComponent implements OnInit {
       }, 0); 
     }
   }
-  
 
   sendMessage() {
     if (this.newMessage.trim()) {

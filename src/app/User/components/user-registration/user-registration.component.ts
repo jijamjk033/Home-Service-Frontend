@@ -74,5 +74,4 @@ export class UserRegistrationComponent implements OnInit {
       }
     });
   }
-
 }

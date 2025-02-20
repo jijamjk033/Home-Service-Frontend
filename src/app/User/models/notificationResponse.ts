@@ -1,4 +1,5 @@
 export interface NotificationResponse {
+    timestamp:  Date;
     _id: string;                
     senderId: string;           
     senderModel: string;        
@@ -7,7 +8,7 @@ export interface NotificationResponse {
     message: string;           
     type: string;              
     orderId?: string;           
-    createdAt: string;          
+    createdAt: Date;          
     updatedAt: string;      
 }
   

@@ -10,8 +10,8 @@
         <ul>
             <li *ngFor="let notification of notifications" class="border shadow-xl mb-4 p-3 rounded-lg">
                 <p class="text-sm text-gray-800 font-medium">{{ notification.message }}</p>
-                <small class="text-xs text-gray-500 block mt-2">
-                    {{ notification.createdAt | date:'short' }}
+                <small class="text-xs  text-gray-500 block text-right">
+                    {{ notification.createdAt | date: 'hh:mm a, MMM dd yyyy'}}
                 </small>
             </li>
         </ul>

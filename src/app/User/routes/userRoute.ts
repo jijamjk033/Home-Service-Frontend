@@ -17,7 +17,6 @@ import { WalletComponent } from '../components/wallet/wallet.component';
 export const userRoutes: Routes = [
 
     { path: '', redirectTo: 'userHome', pathMatch: 'full' },
-
     { path: 'userHome', component: HomepageComponent },
     { path: 'userProfile', component: UserProfileComponent, canActivate: [userAuthGuard]},
     { path: 'wallet', component: WalletComponent, canActivate:[userAuthGuard]},

@@ -28,13 +28,20 @@ export class userService {
   constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) { }
 
   getToken(): string | null {
-    if (isPlatformBrowser(this.platformId)) {
-      if (!this.token) {
-        this.token = localStorage.getItem('userToken');
+    if (typeof window !== 'undefined' && window.localStorage) {
+      if (isPlatformBrowser(this.platformId)) {
+        if (!this.token) {
+          this.token = localStorage.getItem('token');
+        }
+      }
+      const role = localStorage.getItem('userRole');
+      if (role == 'user') {
+        return this.token;
       }
     }
-    return this.token;
+    return null;
   }
+
 
   getUserId(): string | null {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -65,7 +72,7 @@ export class userService {
   }
 
   logout() {
-    localStorage.removeItem('userToken');
+    localStorage.removeItem('token');
     localStorage.removeItem('user_id');
     localStorage.removeItem('userEmail');
     this.loggedIn.next(false);
@@ -89,7 +96,7 @@ export class userService {
   login(data: object): Observable<ResponseModel<LoginResponse>> {
     return this.http.post<ResponseModel<LoginResponse>>(`${this.apiKey}/login`, data).pipe(
       tap((response) => {
-        const token = response.data?.token; 
+        const token = response.data?.token;
         if (token) {
           this.loggedIn.next(true);
         }

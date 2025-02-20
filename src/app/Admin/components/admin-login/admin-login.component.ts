@@ -18,8 +18,9 @@ export class AdminLoginComponent {
   adminLogin(credentials: { email: string; password: string }) {
     this.adminService.login(credentials).subscribe({
       next: (response) => {
-        localStorage.setItem('adminToken', response.data.token);
+        localStorage.setItem('token', response.data.token);
         localStorage.setItem('admin', response.data.admin);
+        localStorage.setItem('userRole', 'admin');
         this.toastr.success(response.data.message, 'Success');
         this.router.navigate(['/adminHome/adminDashboard']);
       },

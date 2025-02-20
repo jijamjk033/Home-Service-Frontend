@@ -34,7 +34,6 @@ export class AddressManagementComponent implements OnInit {
   loadAddresses() {
     if (typeof window !== 'undefined' && window.localStorage) {
       this.userId = localStorage.getItem('user_id') || '';
-
       if (this.userId) {
         this.userService.getAddresses(this.userId).subscribe(
           (response) => {

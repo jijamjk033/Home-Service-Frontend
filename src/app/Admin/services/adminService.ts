@@ -15,8 +15,9 @@ export class AdminServices {
   private apiKey = import.meta.env.NG_APP_ADMIN_API_URL;
   isLoggedIn(): boolean {
     if (typeof window !== 'undefined' && localStorage) {
-      const token = localStorage.getItem('adminToken');
-      return !!token; 
+      const token = localStorage.getItem('token');
+      const role = localStorage.getItem('userRole');
+      return !!token && role === 'admin'; 
     }
     return false;
   }
@@ -31,7 +32,7 @@ export class AdminServices {
   }
 
   logout():void{
-    localStorage.removeItem('adminToken');
+    localStorage.removeItem('token');
     this.router.navigate(['/adminLogin']);
   }
 

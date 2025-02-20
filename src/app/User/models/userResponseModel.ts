@@ -24,6 +24,7 @@ export interface VerifyOtpResponse {
   export interface LoginResponse {
     token: string;
     user: {
+      role: string;
       email: string;    
       id: string;       
       name: string; 

@@ -12,11 +12,12 @@ import { Router } from '@angular/router';
   styleUrl: './user-login.component.css'
 })
 export class UserLoginComponent {
-  constructor(private router: Router, private toastr: ToastrService, private userService: userService) {}
+  constructor(private router: Router, private toastr: ToastrService, private userService: userService) { }
   userLogin(credentials: { email: string; password: string }) {
     this.userService.login(credentials).subscribe({
       next: (response) => {
-        localStorage.setItem('userToken', response.data.token);
+        localStorage.setItem('token', response.data.token); 
+        localStorage.setItem('userRole', response.data.user.role);
         localStorage.setItem('user_id', response.data.user.id);
         localStorage.setItem('userEmail', response.data.user.email);
         this.toastr.success(response.data.message, 'Success');

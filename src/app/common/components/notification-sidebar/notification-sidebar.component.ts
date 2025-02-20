@@ -56,7 +56,11 @@ export class NotificationSidebarComponent implements OnInit {
   private fetchNotifications(recipientId: string): void {
     this.notificationService.fetchNotifications(recipientId).subscribe(
       (response) => {
-        this.notifications = response.data || [];
+        console.log(response.data);
+        this.notifications = response.data.map(notification => ({
+          ...notification,
+          createdAt: new Date(notification.timestamp)
+        }));
       },
       (error) => {
         console.error('Error fetching notifications:', error);
@@ -67,7 +71,10 @@ export class NotificationSidebarComponent implements OnInit {
   private subscribeToLiveNotifications(): void {
     this.notificationService.getNotifications().subscribe(
       (notification) => {
-        this.notifications.unshift(notification);
+        this.notifications.unshift({
+          ...notification,
+          createdAt: new Date(notification.timestamp)
+        });
       },
       (error) => {
         console.error('Error receiving live notifications:', error);
