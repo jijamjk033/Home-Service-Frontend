@@ -4,7 +4,8 @@
     <h2 class="text-lg font-semibold text-white">Chat</h2>
     <button class="text-white hover:text-red-500" (click)="close()">✕</button>
   </div>
-  <div class="p-4 overflow-y-auto" #chatMessages id="chatMessages" style="height: calc(100% - 100px); background-color: #f9f9f9;">
+  <div class="p-4 overflow-y-auto" #chatMessages id="chatMessages"
+    style="height: calc(100% - 100px); background-color: #f9f9f9;">
     <div *ngFor="let message of messages" class="mb-4"
       [ngClass]="{ 'text-right': message.isOutgoing, 'text-left': !message.isOutgoing }">
       <div [ngClass]="{
@@ -28,5 +29,4 @@
       Send
     </button>
   </div>
-
 </div>
