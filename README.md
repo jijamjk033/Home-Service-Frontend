@@ -1,7 +1,9 @@
-🏠 Home Service App – Frontend
+## 🏠HomeService App - Frontend
+
 This is the frontend for a Home Service Booking platform developed using Angular. It allows users to browse services, book appointments, and manage bookings with service providers.
 
-🚀 Features
+## 🚀Features
+
 User registration and login
 
 Browse and search for services
@@ -14,7 +16,8 @@ Real-time feedback via form validations and status updates
 
 Integration with backend APIs for data and authentication
 
-🛠 Tech Stack
+## 🛠 Tech Stack
+
 Frontend: Angular, TypeScript, HTML, CSS, Tailwind (or Bootstrap if used)
 
 State Management: RxJS / Services
