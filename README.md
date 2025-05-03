@@ -2,6 +2,8 @@
 
 This is the frontend for a Home Service Booking platform developed using Angular. It allows users to browse services, book appointments, and manage bookings with service providers.
 
+The project is live and available: https://www.homeserviceapp.site/
+
 ## 🚀Features
 
 User registration and login
