@@ -1,6 +1,30 @@
-# Frontend
+## 🏠HomeService App - Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.1.
+This is the frontend for a Home Service Booking platform developed using Angular. It allows users to browse services, book appointments, and manage bookings with service providers.
+
+The project is live and available: https://www.homeserviceapp.site/
+
+## 🚀Features
+
+User registration and login
+
+Browse and search for services
+
+Book services with preferred date/time
+
+Responsive UI with Angular components
+
+Real-time feedback via form validations and status updates
+
+Integration with backend APIs for data and authentication
+
+## 🛠 Tech Stack
+
+Frontend: Angular, TypeScript, HTML, CSS, Tailwind (or Bootstrap if used)
+
+State Management: RxJS / Services
+
+API Communication: HTTPClient (RESTful APIs)
 
 ## Development server
 
