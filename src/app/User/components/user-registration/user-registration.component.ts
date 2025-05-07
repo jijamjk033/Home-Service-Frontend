@@ -56,7 +56,10 @@ export class UserRegistrationComponent implements OnInit {
     };
     this.userService.signup(userData).subscribe({
       next: (response) => {
-        if (response && response.message === 'Otp sent to your email' && response.data.otpToken) {
+        this.isRegisterLoading = false;
+        console.log(response, 'response from signup');
+        
+        if (response?.data.message === 'Otp sent to your email' && response?.data?.otpToken) {
           this.toastr.success('Registration successful', 'Success');
           this.router.navigate(['/user-otp']);
           localStorage.setItem('otpToken', response.data.otpToken);
